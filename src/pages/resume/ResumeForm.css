@@ -1,0 +1,197 @@
+.resume-form-page {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 2.5rem;
+    border-radius: 24px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.form-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: var(--text-muted);
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+}
+
+.form-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-right: 1px solid var(--glass-border);
+    padding-right: 1.5rem;
+}
+
+.sidebar-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sidebar-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+.sidebar-tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.form-content {
+    min-height: 400px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-group input,
+.input-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: white;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.array-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.remove-btn {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+.add-btn {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px dashed var(--primary);
+    color: var(--primary);
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.next-btn,
+.submit-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+}
+
+.next-btn:hover,
+.submit-btn:hover {
+    background: var(--primary-hover);
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .form-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 1rem;
+        padding-right: 0;
+    }
+
+    .sidebar-tab {
+        white-space: nowrap;
+    }
+
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+}

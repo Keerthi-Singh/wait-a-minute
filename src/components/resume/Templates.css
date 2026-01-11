@@ -1,0 +1,162 @@
+.resume-layout {
+    background: white;
+    color: #333;
+    padding: 40px;
+    width: 100%;
+    max-width: 800px;
+    min-height: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Template A */
+.template-a .resume-header {
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.template-a h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+}
+
+.template-a .resume-section h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.template-a .resume-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.template-a .entry {
+    margin-bottom: 15px;
+}
+
+.template-a .entry-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Template B */
+.template-b {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    padding: 0;
+    overflow: hidden;
+}
+
+.template-b .sidebar {
+    background: #1e293b;
+    color: white;
+    padding: 40px 30px;
+}
+
+.template-b .sidebar h2 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.template-b .side-section {
+    margin-top: 30px;
+}
+
+.template-b .side-section h4 {
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #94a3b8;
+}
+
+.template-b .main-content {
+    padding: 40px;
+}
+
+.template-b .content-section {
+    margin-bottom: 30px;
+}
+
+.template-b .content-section h4 {
+    text-transform: uppercase;
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.template-b .content-entry-header {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Template C */
+.template-c {
+    padding: 0;
+    background: #fafafa;
+}
+
+.template-c .creative-header {
+    background: #6366f1;
+    color: white;
+    padding: 50px 40px;
+}
+
+.template-c .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.template-c .header-top h1 {
+    margin: 0;
+    font-size: 3rem;
+}
+
+.template-c .creative-contact {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.template-c .creative-banner {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.template-c .creative-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+.template-c .creative-title {
+    color: #6366f1;
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.template-c .creative-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.template-c .creative-role {
+    margin: 5px 0 10px 0;
+    color: #333;
+}
