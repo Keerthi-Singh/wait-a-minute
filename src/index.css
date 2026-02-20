@@ -28,6 +28,18 @@ body {
     flex-direction: column;
 }
 
+.app-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.app-main-content {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {

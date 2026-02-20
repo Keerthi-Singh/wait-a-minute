@@ -1,32 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { enhanceResumeBullet } from '../../utils/aiService';
 import './ResumeForm.css';
-import { getCurrentUser, saveResumeForUser } from '../../firebase/firebase';
+import { saveResumeForUser } from '../../firebase/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 
-const ResumeForm = ({ resumeData, setResumeData }) => {
+const getDefaultFormData = () => ({
+    personalInfo: { fullName: '', email: '', phone: '', location: '', linkedIn: '', website: '' },
+    objective: '',
+    skills: { technical: '', soft: '' },
+    experience: [{ company: '', role: '', duration: '', description: '' }],
+    education: [{ school: '', degree: '', year: '' }],
+    certifications: '',
+    hobbies: ''
+});
+
+const ResumeForm = () => {
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('Personal Info');
+    // Track whether we've loaded saved data so we don't overwrite it
+    const hasLoaded = useRef(false);
 
-    const [formData, setFormData] = useState({
-        personalInfo: { fullName: '', email: '', phone: '', location: '', linkedIn: '', website: '' },
-        objective: '',
-        skills: { technical: '', soft: '' },
-        experience: [{ company: '', role: '', duration: '', description: '' }],
-        education: [{ school: '', degree: '', year: '' }],
-        certifications: '',
-        hobbies: ''
+    const [formData, setFormData] = useState(() => {
+        // Initialize from localStorage immediately (synchronous) to avoid race condition
+        try {
+            const saved = localStorage.getItem('resumeData');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                hasLoaded.current = true;
+                return { ...getDefaultFormData(), ...parsed };
+            }
+        } catch (err) {
+            console.warn('Failed to load saved resumeData on init', err);
+        }
+        hasLoaded.current = true;
+        return getDefaultFormData();
     });
-    const emptyEntry = {
-        education: [{ degree: '', institution: '', location: '', start: '', end: '', score: '' }],
-        certifications: [{ name: '', platform: '', year: '' }],
-        internships: [{ role: '', org: '', location: '', duration: '', desc: '' }],
-        projects: [{ name: '', year: '', org: '' }],
-        skills: { technical: [], soft: [] },
-        languages: [],
-    };
 
     const sections = [
         'Personal Info',
@@ -46,9 +56,11 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
     };
 
     const handleArrayChange = (section, index, field, value) => {
-        const updatedArray = [...formData[section]];
-        updatedArray[index][field] = value;
-        setFormData(prev => ({ ...prev, [section]: updatedArray }));
+        setFormData(prev => {
+            const updatedArray = [...prev[section]];
+            updatedArray[index] = { ...updatedArray[index], [field]: value };
+            return { ...prev, [section]: updatedArray };
+        });
     };
 
     const addArrayItem = (section, emptyItem) => {
@@ -61,40 +73,16 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
     const removeArrayItem = (section, index) => {
         if (formData[section].length > 1) {
             const updatedArray = formData[section].filter((_, i) => i !== index);
-            const handleChange = (section, field, value, idx) => {
-                if (Array.isArray(formData[section])) {
-                    const updated = formData[section].map((item, i) =>
-                        i === idx ? { ...item, [field]: value } : item
-                    );
-                    setFormData({ ...formData, [section]: updated });
-                } else if (section === 'skills') {
-                    setFormData({ ...formData, skills: { ...formData.skills, [field]: value.split(',').map(s => s.trim()) } });
-                } else {
-                    setFormData({ ...formData, [field]: value });
-                }
-            };
             setFormData(prev => ({ ...prev, [section]: updatedArray }));
         }
     };
 
     const { user } = useAuth();
 
-    // Load any saved draft from localStorage on mount
-    useEffect(() => {
-        try {
-            const saved = localStorage.getItem('resumeData');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                // merge saved values with defaults to avoid missing keys
-                setFormData(prev => ({ ...prev, ...parsed }));
-            }
-        } catch (err) {
-            console.warn('Failed to load saved resumeData', err);
-        }
-    }, []);
-
     // Persist form data to localStorage whenever it changes (draft autosave)
+    // Only start saving AFTER initial load is done
     useEffect(() => {
+        if (!hasLoaded.current) return;
         try {
             localStorage.setItem('resumeData', JSON.stringify(formData));
         } catch (err) {
@@ -104,9 +92,9 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Save locally for backward compatibility
+        // Save locally
         localStorage.setItem('resumeData', JSON.stringify(formData));
-        // immediately proceed to template selection so UI doesn't jump unexpectedly
+        // immediately proceed to template selection
         navigate('/resume/templates');
 
         // Async persistence & verification prompts (background)
@@ -114,13 +102,11 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
             try {
                 if (user && user.uid) {
                     if (user.email && user.emailVerified === false) {
-                        // non-blocking warning instead of forcing navigation
                         window.alert('Email not verified. You can verify from your account page to enable saving to Firestore.');
                     } else {
                         await saveResumeForUser(user.uid, formData, { name: formData.personalInfo.fullName || 'Untitled Resume' });
                     }
                 } else {
-                    // unauthenticated, just warn user
                     console.log('User not signed in; resume saved locally only.');
                 }
             } catch (err) {
@@ -280,7 +266,7 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
             <div className="form-container glass-card">
                 <header className="form-header">
                     <h1>Resume <span className="gradient-text">Builder</span></h1>
-                    <p>Fill out all sections to generate your professional resume.</p>
+                    <p>AI-powered resume creation — fill out all sections to generate your professional resume.</p>
                 </header>
 
                 <div className="form-layout">

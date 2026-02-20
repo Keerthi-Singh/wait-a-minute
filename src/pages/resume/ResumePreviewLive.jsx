@@ -1,4 +1,4 @@
 import ResumePreview from './ResumePreview';
 
-// Lightweight re-export used by some dev routes/hmr references.
+// Re-export used by the generator page and dev routes.
 export default ResumePreview;

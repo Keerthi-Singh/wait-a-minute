@@ -12,7 +12,7 @@ const Loader = () => {
                     <div className="core"></div>
                 </div>
                 <h2 className="loader-text">Analyzing your answers...</h2>
-                <p className="loader-subtext">Mapping your professional DNA to perfect career paths</p>
+                <p className="loader-subtext">AI is mapping your ideal career path — just a minute</p>
             </div>
         </div>
     );

@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import html2pdf from 'html2pdf.js';
 import TemplateA from '../../components/resume/TemplateA';
 import TemplateB from '../../components/resume/TemplateB';
 import TemplateC from '../../components/resume/TemplateC';
+import TemplateD from '../../components/resume/TemplateD';
 import './ResumePreview.css';
 
 const ResumePreview = () => {
@@ -23,27 +24,74 @@ const ResumePreview = () => {
             return;
         }
 
-        setResumeData(JSON.parse(data));
+        try {
+            setResumeData(JSON.parse(data));
+        } catch (err) {
+            console.error('Failed to parse resumeData from localStorage', err);
+            navigate('/resume/form');
+            return;
+        }
         setSelectedTemplate(template || 'A');
     }, [navigate]);
 
-    // Normalize resume data to ensure templates won't throw on unexpected shapes
-    const normalized = React.useMemo(() => {
+    // Normalize resume data so templates never crash on unexpected shapes
+    const normalized = useMemo(() => {
         if (!resumeData) return null;
-        const copy = JSON.parse(JSON.stringify(resumeData));
-        // Ensure arrays
-        copy.experience = Array.isArray(copy.experience) ? copy.experience : (copy.experience ? [copy.experience] : []);
-        copy.education = Array.isArray(copy.education) ? copy.education : (copy.education ? [copy.education] : []);
-        copy.projects = Array.isArray(copy.projects) ? copy.projects : (copy.projects ? [copy.projects] : []);
-        // Normalize skills to arrays
-        if (!copy.skills) copy.skills = { technical: [], soft: [] };
-        if (typeof copy.skills.technical === 'string') {
-            copy.skills.technical = copy.skills.technical.split(',').map(s => s.trim()).filter(Boolean);
+        try {
+            const copy = JSON.parse(JSON.stringify(resumeData));
+
+            // Ensure personalInfo exists
+            if (!copy.personalInfo) copy.personalInfo = {};
+            copy.personalInfo.fullName = copy.personalInfo.fullName || '';
+            copy.personalInfo.email = copy.personalInfo.email || '';
+            copy.personalInfo.phone = copy.personalInfo.phone || '';
+            copy.personalInfo.location = copy.personalInfo.location || '';
+
+            // Ensure arrays
+            copy.experience = Array.isArray(copy.experience) ? copy.experience : [];
+            copy.education = Array.isArray(copy.education) ? copy.education : [];
+            copy.projects = Array.isArray(copy.projects) ? copy.projects : [];
+
+            // Normalize education entries: map 'school' to 'institution', 'year' to 'start'/'end'
+            copy.education = copy.education.map(edu => ({
+                degree: edu.degree || '',
+                institution: edu.institution || edu.school || '',
+                school: edu.school || edu.institution || '',
+                location: edu.location || '',
+                start: edu.start || edu.year || '',
+                end: edu.end || '',
+                year: edu.year || edu.start || '',
+                score: edu.score || ''
+            }));
+
+            // Normalize skills to arrays
+            if (!copy.skills) copy.skills = { technical: [], soft: [] };
+            if (typeof copy.skills.technical === 'string') {
+                copy.skills.technical = copy.skills.technical.split(',').map(s => s.trim()).filter(Boolean);
+            }
+            if (!Array.isArray(copy.skills.technical)) copy.skills.technical = [];
+            if (typeof copy.skills.soft === 'string') {
+                copy.skills.soft = copy.skills.soft.split(',').map(s => s.trim()).filter(Boolean);
+            }
+            if (!Array.isArray(copy.skills.soft)) copy.skills.soft = [];
+
+            // Ensure objective
+            copy.objective = copy.objective || '';
+
+            // Ensure certifications (can be string or array)
+            if (!copy.certifications) copy.certifications = '';
+
+            // Ensure hobbies
+            copy.hobbies = copy.hobbies || '';
+
+            // Ensure languages
+            if (!Array.isArray(copy.languages)) copy.languages = [];
+
+            return copy;
+        } catch (err) {
+            console.error('Error normalizing resume data', err);
+            return null;
         }
-        if (typeof copy.skills.soft === 'string') {
-            copy.skills.soft = copy.skills.soft.split(',').map(s => s.trim()).filter(Boolean);
-        }
-        return copy;
     }, [resumeData]);
 
     const handleDownload = () => {
@@ -52,9 +100,10 @@ const ResumePreview = () => {
         setIsExporting(true);
 
         const element = resumeRef.current;
+        const fullName = (normalized && normalized.personalInfo && normalized.personalInfo.fullName) || 'Resume';
         const opt = {
             margin: 0,
-            filename: `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf`,
+            filename: `${fullName.replace(/\s+/g, '_')}_Resume.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, letterRendering: true },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -62,19 +111,21 @@ const ResumePreview = () => {
 
         html2pdf().from(element).set(opt).save().then(() => {
             setIsExporting(false);
+        }).catch(err => {
+            console.error('PDF export failed', err);
+            setIsExporting(false);
         });
     };
 
-    if (!resumeData) return null;
+    if (!normalized) return null;
 
     const renderTemplate = () => {
-        const dataProp = normalized || resumeData;
         switch (selectedTemplate) {
-            case 'A': return <TemplateA data={dataProp} />;
-            case 'B': return <TemplateB data={dataProp} />;
-            case 'C': return <TemplateC data={dataProp} />;
-            case 'D': return React.createElement(require('../../components/resume/TemplateD').default, { data: dataProp });
-            default: return <TemplateA data={dataProp} />;
+            case 'A': return <TemplateA data={normalized} />;
+            case 'B': return <TemplateB data={normalized} />;
+            case 'C': return <TemplateC data={normalized} />;
+            case 'D': return <TemplateD data={normalized} />;
+            default: return <TemplateA data={normalized} />;
         }
     };
 

@@ -1,6 +1,6 @@
 // Firebase initialization and helpers
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { getDocs, query, orderBy, deleteDoc } from 'firebase/firestore';
 import { sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth';
@@ -20,11 +20,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Try to sign in anonymously on load (safe for client side apps)
-signInAnonymously(auth).catch((err) => {
-  // It's fine to continue without auth; log for debugging
-  console.warn('Firebase anonymous sign-in failed:', err.message || err);
-});
+// Auth state changes are handled by AuthContext via onAuthStateChanged
 
 // Helper that returns a Promise resolving to the current user (or null)
 export const getCurrentUser = () => {
@@ -70,7 +66,7 @@ export const ensureUserDocument = async (uid, email) => {
 
 // Real-time listener for analyses collection for a user
 export const listenToAnalyses = (uid, onUpdate, onError) => {
-  if (!uid) return () => {};
+  if (!uid) return () => { };
   const colRef = collection(db, 'users', uid, 'analyses');
   const q = query(colRef, orderBy('createdAt', 'desc'));
   const unsub = onSnapshot(q, (snapshot) => {

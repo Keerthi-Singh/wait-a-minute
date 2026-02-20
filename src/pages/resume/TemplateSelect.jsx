@@ -7,12 +7,12 @@ const templates = [
     { id: 'A', name: 'Classic Professional', description: 'Traditional and clean layout for conservative industries.' },
     { id: 'B', name: 'Modern Duo', description: 'Sleek two-column design that highlights skills and experience.' },
     { id: 'C', name: 'Creative Pulse', description: 'Bold and vibrant layout for designers and creatives.' }
-    ,{ id: 'D', name: 'Minimal Single-Page', description: 'Compact, resume-first single page optimized for recruiters.' }
+    , { id: 'D', name: 'Minimal Single-Page', description: 'Compact, resume-first single page optimized for recruiters.' }
 ];
 
 const TemplateSelect = () => {
     const navigate = useNavigate();
-   const [accentColor, setAccentColor] = useState('#000000'); // Default accent color
+    const [accentColor, setAccentColor] = useState('#000000'); // Default accent color
     const [selected, setSelected] = useState('A');
 
     const handleSelect = (id) => {
@@ -58,8 +58,20 @@ const TemplateSelect = () => {
                 </div>
 
                 <div className="template-actions">
-                    <button className="back-btn" onClick={() => navigate('/resume/form')}>Back to Edit</button>
-                    <button className="cta-button" onClick={handleProceed}>Preview Resume</button>
+                    <button className="back-btn" onClick={() => navigate('/resume/form')}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Back to Edit
+                    </button>
+                    <button className="cta-button" onClick={handleProceed}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        Preview Resume
+                    </button>
                 </div>
             </motion.div>
         </div>

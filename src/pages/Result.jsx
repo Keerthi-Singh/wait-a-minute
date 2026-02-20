@@ -41,7 +41,7 @@ const Result = () => {
         >
             <div className="result-container">
                 <motion.div className="result-header" variants={itemVariants}>
-                    <span className="badge">Your Ideal Career Path</span>
+                    <span className="badge">AI-Powered Career Intelligence</span>
                     <h1 className="career-title">{result.career}</h1>
                     <p className="career-description">{result.description}</p>
                 </motion.div>
@@ -52,7 +52,11 @@ const Result = () => {
                         <div className="skills-grid">
                             {result.skills.map((skill, index) => (
                                 <div key={index} className="skill-card">
-                                    <div className="skill-icon">⚡</div>
+                                    <div className="skill-icon">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                        </svg>
+                                    </div>
                                     <span>{skill}</span>
                                 </div>
                             ))}
@@ -79,9 +83,20 @@ const Result = () => {
 
                 <motion.div className="result-actions" variants={itemVariants}>
                     <button className="retake-btn" onClick={() => navigate('/analyzer')}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                            <polyline points="1 4 1 10 7 10" />
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                        </svg>
                         Retake Assessment
                     </button>
-                    <button className="share-btn">Download Roadmap</button>
+                    <button className="share-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download Roadmap
+                    </button>
                 </motion.div>
             </div>
         </motion.div>

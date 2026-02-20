@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth, getCurrentUser, loginWithEmail, registerWithEmail, loginWithGoogle, logout as firebaseLogout, sendPasswordReset, sendVerificationEmail, reloadCurrentUser } from '../firebase/firebase';
+import { auth, loginWithEmail, registerWithEmail, loginWithGoogle, logout as firebaseLogout, sendPasswordReset, sendVerificationEmail, reloadCurrentUser } from '../firebase/firebase';
 import { ensureUserDocument } from '../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -11,14 +11,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      // ensure the user's document exists in Firestore for persistence
-      if (u && u.uid) {
+      // Only treat real (non-anonymous, email/Google) users as logged in
+      if (u && !u.isAnonymous) {
+        setUser(u);
+        // ensure the user's document exists in Firestore for persistence
         try {
           ensureUserDocument(u.uid, u.email).catch(err => console.warn('ensureUserDocument failed', err));
         } catch (err) {
           console.warn('ensureUserDocument call error', err);
         }
+      } else {
+        setUser(null);
       }
       setLoading(false);
     });
