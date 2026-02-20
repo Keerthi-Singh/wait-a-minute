@@ -79,41 +79,52 @@ const ResumeForm = ({ resumeData, setResumeData }) => {
 
     const { user } = useAuth();
 
+    // Load any saved draft from localStorage on mount
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('resumeData');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // merge saved values with defaults to avoid missing keys
+                setFormData(prev => ({ ...prev, ...parsed }));
+            }
+        } catch (err) {
+            console.warn('Failed to load saved resumeData', err);
+        }
+    }, []);
+
+    // Persist form data to localStorage whenever it changes (draft autosave)
+    useEffect(() => {
+        try {
+            localStorage.setItem('resumeData', JSON.stringify(formData));
+        } catch (err) {
+            console.warn('Failed to autosave resumeData', err);
+        }
+    }, [formData]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Save locally for backward compatibility
         localStorage.setItem('resumeData', JSON.stringify(formData));
-        // Persist to Firestore under the authenticated user if available
+        // immediately proceed to template selection so UI doesn't jump unexpectedly
+        navigate('/resume/templates');
+
+        // Async persistence & verification prompts (background)
         (async () => {
             try {
                 if (user && user.uid) {
-                    // Require email verification before allowing saves to the user's account
                     if (user.email && user.emailVerified === false) {
-                        const goVerify = window.confirm('Your email address is not verified. Verify now to save to your account?');
-                        if (goVerify) {
-                            navigate('/auth/verify');
-                            return;
-                        } else {
-                            // proceed without saving to Firestore
-                            navigate('/resume/templates');
-                            return;
-                        }
+                        // non-blocking warning instead of forcing navigation
+                        window.alert('Email not verified. You can verify from your account page to enable saving to Firestore.');
+                    } else {
+                        await saveResumeForUser(user.uid, formData, { name: formData.personalInfo.fullName || 'Untitled Resume' });
                     }
-                    await saveResumeForUser(user.uid, formData, { name: formData.personalInfo.fullName || 'Untitled Resume' });
-                    navigate('/resume/templates');
-                    return;
-                }
-
-                // If not authenticated, redirect user to login so they can save to their account
-                const shouldLogin = window.confirm('You are not signed in. Sign in to save your resume to your account?');
-                if (shouldLogin) {
-                    navigate('/auth/login');
                 } else {
-                    navigate('/resume/templates');
+                    // unauthenticated, just warn user
+                    console.log('User not signed in; resume saved locally only.');
                 }
             } catch (err) {
                 console.warn('Failed to save resume to Firestore', err);
-                navigate('/resume/templates');
             }
         })();
     };
