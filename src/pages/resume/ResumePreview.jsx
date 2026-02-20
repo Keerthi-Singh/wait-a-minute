@@ -13,25 +13,10 @@ const ResumePreview = () => {
     const [resumeData, setResumeData] = useState(null);
     const [selectedTemplate, setSelectedTemplate] = useState('A');
     const [isExporting, setIsExporting] = useState(false);
-    const [accentColor, setAccentColor] = useState('#1a237e');
-
-    const getContrastColor = (hex) => {
-        if (!hex) return '#000';
-        const h = hex.replace('#', '');
-        const r = parseInt(h.substring(0, 2), 16) / 255;
-        const g = parseInt(h.substring(2, 4), 16) / 255;
-        const b = parseInt(h.substring(4, 6), 16) / 255;
-        const lr = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
-        const lg = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
-        const lb = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
-        const lum = 0.2126 * lr + 0.7152 * lg + 0.0722 * lb;
-        return lum > 0.6 ? '#111111' : '#ffffff';
-    };
 
     useEffect(() => {
         const data = localStorage.getItem('resumeData');
         const template = localStorage.getItem('selectedTemplate');
-        const accent = localStorage.getItem('selectedAccent');
 
         if (!data) {
             navigate('/resume/form');
@@ -40,8 +25,26 @@ const ResumePreview = () => {
 
         setResumeData(JSON.parse(data));
         setSelectedTemplate(template || 'A');
-        if (accent) setAccentColor(accent);
     }, [navigate]);
+
+    // Normalize resume data to ensure templates won't throw on unexpected shapes
+    const normalized = React.useMemo(() => {
+        if (!resumeData) return null;
+        const copy = JSON.parse(JSON.stringify(resumeData));
+        // Ensure arrays
+        copy.experience = Array.isArray(copy.experience) ? copy.experience : (copy.experience ? [copy.experience] : []);
+        copy.education = Array.isArray(copy.education) ? copy.education : (copy.education ? [copy.education] : []);
+        copy.projects = Array.isArray(copy.projects) ? copy.projects : (copy.projects ? [copy.projects] : []);
+        // Normalize skills to arrays
+        if (!copy.skills) copy.skills = { technical: [], soft: [] };
+        if (typeof copy.skills.technical === 'string') {
+            copy.skills.technical = copy.skills.technical.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        if (typeof copy.skills.soft === 'string') {
+            copy.skills.soft = copy.skills.soft.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        return copy;
+    }, [resumeData]);
 
     const handleDownload = () => {
         if (!resumeRef.current) return;
@@ -65,12 +68,13 @@ const ResumePreview = () => {
     if (!resumeData) return null;
 
     const renderTemplate = () => {
-        const props = { data: resumeData, accentColor, accentTextColor: getContrastColor(accentColor) };
+        const dataProp = normalized || resumeData;
         switch (selectedTemplate) {
-            case 'A': return <TemplateA {...props} />;
-            case 'B': return <TemplateB {...props} />;
-            case 'C': return <TemplateC {...props} />;
-            default: return <TemplateA {...props} />;
+            case 'A': return <TemplateA data={dataProp} />;
+            case 'B': return <TemplateB data={dataProp} />;
+            case 'C': return <TemplateC data={dataProp} />;
+            case 'D': return React.createElement(require('../../components/resume/TemplateD').default, { data: dataProp });
+            default: return <TemplateA data={dataProp} />;
         }
     };
 

@@ -2,8 +2,9 @@ import React from 'react';
 
 // Minimal resume template (TemplateD) — keeps layout simple and ATS-friendly.
 // Accepts a `resume` prop (object) and `accentColor` string for theming.
-const TemplateD = ({ resume = {}, accentColor = '#0b71ff' }) => {
-	const r = resume || {};
+const TemplateD = ({ data: resume = {}, accentColor = '#0b71ff', data }) => {
+	// support both `data` and legacy `resume` prop names
+	const r = data || resume || {};
 	const personal = r.personalInfo || {};
 	const skills = r.skills?.technical ? (Array.isArray(r.skills.technical) ? r.skills.technical : String(r.skills.technical).split(',').map(s => s.trim())) : [];
 

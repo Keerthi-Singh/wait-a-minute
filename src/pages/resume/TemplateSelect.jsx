@@ -6,8 +6,8 @@ import './TemplateSelect.css';
 const templates = [
     { id: 'A', name: 'Classic Professional', description: 'Traditional and clean layout for conservative industries.' },
     { id: 'B', name: 'Modern Duo', description: 'Sleek two-column design that highlights skills and experience.' },
-    { id: 'C', name: 'Creative Pulse', description: 'Bold and vibrant layout for designers and creatives.' },
-    { id: 'D', name: 'Minimal Single-Page', description: 'Compact, resume-first single page optimized for recruiters.' }
+    { id: 'C', name: 'Creative Pulse', description: 'Bold and vibrant layout for designers and creatives.' }
+    ,{ id: 'D', name: 'Minimal Single-Page', description: 'Compact, resume-first single page optimized for recruiters.' }
 ];
 
 const TemplateSelect = () => {
@@ -18,13 +18,11 @@ const TemplateSelect = () => {
     const handleSelect = (id) => {
         setSelected(id);
         localStorage.setItem('selectedTemplate', id);
-        // Immediately enter the generator with the selected template so user can start editing
-        navigate('/resume/generator');
     };
 
     const handleProceed = () => {
         localStorage.setItem('selectedTemplate', selected);
-        navigate('/resume/generator');
+        navigate('/resume/preview');
     };
 
     return (
