@@ -1,0 +1,20 @@
+.resume-generator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.resume-main {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .resume-main {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import JobDiscovery from '../components/JobDiscovery';
 import './Result.css';
 
 const Result = () => {
@@ -73,6 +74,8 @@ const Result = () => {
                         </div>
                     </motion.section>
                 </div>
+
+                <JobDiscovery careerTitle={result.career} />
 
                 <motion.div className="result-actions" variants={itemVariants}>
                     <button className="retake-btn" onClick={() => navigate('/analyzer')}>

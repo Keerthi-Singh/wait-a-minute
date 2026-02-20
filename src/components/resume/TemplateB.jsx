@@ -1,41 +1,41 @@
 import React from 'react';
 import './Templates.css';
 
-const TemplateB = ({ data }) => {
+const TemplateB = ({ data, accentColor = '#1a237e', accentTextColor = '#ffffff' }) => {
     return (
         <div className="resume-layout template-b">
             <div className="sidebar">
                 <div className="profile-box">
-                    <h2>{data.personalInfo.fullName}</h2>
+                    <h2 style={{ color: accentTextColor }}>{data.personalInfo.fullName}</h2>
                     <p>{data.personalInfo.location}</p>
                 </div>
 
                 <section className="side-section">
-                    <h4>Contact</h4>
+                    <h4 style={{ color: accentTextColor }}>Contact</h4>
                     <p>{data.personalInfo.email}</p>
                     <p>{data.personalInfo.phone}</p>
                 </section>
 
                 <section className="side-section">
-                    <h4>Skills</h4>
+                    <h4 style={{ color: accentTextColor }}>Skills</h4>
                     <p>{data.skills.technical}</p>
                     <p>{data.skills.soft}</p>
                 </section>
 
                 <section className="side-section">
-                    <h4>Hobbies</h4>
+                    <h4 style={{ color: accentTextColor }}>Hobbies</h4>
                     <p>{data.hobbies}</p>
                 </section>
             </div>
 
             <div className="main-content">
                 <section className="content-section">
-                    <h4>Objective</h4>
+                    <h4 style={{ color: accentTextColor }}>Objective</h4>
                     <p>{data.objective}</p>
                 </section>
 
                 <section className="content-section">
-                    <h4>Experience</h4>
+                    <h4 style={{ color: accentTextColor }}>Experience</h4>
                     {data.experience.map((exp, i) => (
                         <div key={i} className="content-entry">
                             <div className="content-entry-header">
@@ -49,7 +49,7 @@ const TemplateB = ({ data }) => {
                 </section>
 
                 <section className="content-section">
-                    <h4>Education</h4>
+                    <h4 style={{ color: accentTextColor }}>Education</h4>
                     {data.education.map((edu, i) => (
                         <div key={i} className="content-entry">
                             <strong>{edu.degree}</strong>
@@ -62,7 +62,7 @@ const TemplateB = ({ data }) => {
                 </section>
 
                 <section className="content-section">
-                    <h4>Certifications</h4>
+                    <h4 style={{ color: accentTextColor }}>Certifications</h4>
                     <p>{data.certifications}</p>
                 </section>
             </div>

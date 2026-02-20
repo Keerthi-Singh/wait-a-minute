@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { enhanceResumeBullet } from '../../utils/aiService';
 import './ResumeForm.css';
+import { getCurrentUser, saveResumeForUser } from '../../firebase/firebase';
+import { useAuth } from '../../contexts/AuthContext';
 
-const ResumeForm = () => {
+const ResumeForm = ({ resumeData, setResumeData }) => {
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('Personal Info');
 
@@ -16,6 +19,14 @@ const ResumeForm = () => {
         certifications: '',
         hobbies: ''
     });
+    const emptyEntry = {
+        education: [{ degree: '', institution: '', location: '', start: '', end: '', score: '' }],
+        certifications: [{ name: '', platform: '', year: '' }],
+        internships: [{ role: '', org: '', location: '', duration: '', desc: '' }],
+        projects: [{ name: '', year: '', org: '' }],
+        skills: { technical: [], soft: [] },
+        languages: [],
+    };
 
     const sections = [
         'Personal Info',
@@ -50,14 +61,73 @@ const ResumeForm = () => {
     const removeArrayItem = (section, index) => {
         if (formData[section].length > 1) {
             const updatedArray = formData[section].filter((_, i) => i !== index);
+            const handleChange = (section, field, value, idx) => {
+                if (Array.isArray(formData[section])) {
+                    const updated = formData[section].map((item, i) =>
+                        i === idx ? { ...item, [field]: value } : item
+                    );
+                    setFormData({ ...formData, [section]: updated });
+                } else if (section === 'skills') {
+                    setFormData({ ...formData, skills: { ...formData.skills, [field]: value.split(',').map(s => s.trim()) } });
+                } else {
+                    setFormData({ ...formData, [field]: value });
+                }
+            };
             setFormData(prev => ({ ...prev, [section]: updatedArray }));
         }
     };
 
+    const { user } = useAuth();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Save locally for backward compatibility
         localStorage.setItem('resumeData', JSON.stringify(formData));
-        navigate('/resume/templates');
+        // Persist to Firestore under the authenticated user if available
+        (async () => {
+            try {
+                if (user && user.uid) {
+                    // Require email verification before allowing saves to the user's account
+                    if (user.email && user.emailVerified === false) {
+                        const goVerify = window.confirm('Your email address is not verified. Verify now to save to your account?');
+                        if (goVerify) {
+                            navigate('/auth/verify');
+                            return;
+                        } else {
+                            // proceed without saving to Firestore
+                            navigate('/resume/templates');
+                            return;
+                        }
+                    }
+                    await saveResumeForUser(user.uid, formData, { name: formData.personalInfo.fullName || 'Untitled Resume' });
+                    navigate('/resume/templates');
+                    return;
+                }
+
+                // If not authenticated, redirect user to login so they can save to their account
+                const shouldLogin = window.confirm('You are not signed in. Sign in to save your resume to your account?');
+                if (shouldLogin) {
+                    navigate('/auth/login');
+                } else {
+                    navigate('/resume/templates');
+                }
+            } catch (err) {
+                console.warn('Failed to save resume to Firestore', err);
+                navigate('/resume/templates');
+            }
+        })();
+    };
+
+    const [enhancing, setEnhancing] = useState(null);
+
+    const handleEnhance = async (index) => {
+        const bullet = formData.experience[index].description;
+        if (!bullet) return;
+
+        setEnhancing(index);
+        const enhanced = await enhanceResumeBullet(formData.experience[index].role || 'Professional', bullet);
+        handleArrayChange('experience', index, 'description', enhanced);
+        setEnhancing(null);
     };
 
     const renderSection = () => {
@@ -127,7 +197,17 @@ const ResumeForm = () => {
                                     <input type="text" value={exp.duration} onChange={(e) => handleArrayChange('experience', index, 'duration', e.target.value)} placeholder="Jan 2020 - Present" />
                                 </div>
                                 <div className="input-group">
-                                    <label>Description</label>
+                                    <label className="label-with-action">
+                                        Description
+                                        <button
+                                            type="button"
+                                            className="enhance-btn"
+                                            onClick={() => handleEnhance(index)}
+                                            disabled={enhancing === index}
+                                        >
+                                            {enhancing === index ? '✨ Enhancing...' : '✨ AI Optimize'}
+                                        </button>
+                                    </label>
                                     <textarea value={exp.description} onChange={(e) => handleArrayChange('experience', index, 'description', e.target.value)}></textarea>
                                 </div>
                                 <button type="button" className="remove-btn" onClick={() => removeArrayItem('experience', index)}>Remove</button>

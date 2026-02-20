@@ -11,6 +11,13 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* Improve rendering to avoid flicker and ensure crisp text */
+.resume-layout {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* avoid forcing GPU layers or backface hacks that can cause flicker on some systems */
+}
+
 /* Template A */
 .template-a .resume-header {
     border-bottom: 2px solid #333;

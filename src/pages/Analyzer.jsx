@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuestionCard from '../components/QuestionCard';
@@ -29,17 +30,54 @@ const Analyzer = () => {
         }
     };
 
+    const { user } = useAuth();
+
     const handleSubmit = async () => {
         setIsSubmitting(true);
 
         // Perform Rule-Based Analysis
         const result = analyzeCareer(answers);
 
-        // Save to localStorage for persistence
+        // Ask user for a name for this analysis (simple prompt for now)
+        let analysisName = window.prompt('Name this analysis (e.g. "Product Manager Path Q1")', 'My Analysis');
+        if (!analysisName) analysisName = 'My Analysis';
+
+        // Save to localStorage for quick access
         localStorage.setItem('careerResult', JSON.stringify(result));
 
+        // Try to save to Firestore under the current user
+        try {
+            const { saveAnalysisForUser } = await import('../firebase/firebase');
+            if (user && user.uid) {
+                if (user.email && user.emailVerified === false) {
+                    const goVerify = window.confirm('Your email is not verified. Verify now to save this analysis to your account?');
+                    if (goVerify) {
+                        window.location.href = '/auth/verify';
+                        return;
+                    }
+                }
+                const analysisToSave = {
+                    name: analysisName,
+                    answers,
+                    result,
+                    careerTitle: result.career || null,
+                    description: result.description || null,
+                    skills: result.skills || [],
+                    goals: result.goals || []
+                };
+                await saveAnalysisForUser(user.uid, analysisToSave);
+            } else {
+                const shouldLogin = window.confirm('You are not signed in. Sign in to save this analysis to your account?');
+                if (shouldLogin) {
+                    window.location.href = '/auth/login';
+                }
+            }
+        } catch (err) {
+            console.warn('Could not save analysis to Firestore:', err);
+        }
+
         // Simulate processing time
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 1200));
 
         navigate('/result');
     };

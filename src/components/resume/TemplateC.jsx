@@ -1,25 +1,25 @@
 import React from 'react';
 import './Templates.css';
 
-const TemplateC = ({ data }) => {
+const TemplateC = ({ data, accentColor = '#1a237e', accentTextColor = '#ffffff' }) => {
     return (
         <div className="resume-layout template-c">
             <header className="creative-header">
                 <div className="header-top">
-                    <h1>{data.personalInfo.fullName}</h1>
+                    <h1 style={{ color: accentTextColor }}>{data.personalInfo.fullName}</h1>
                     <div className="creative-contact">
                         <span>{data.personalInfo.email}</span>
                         <span>{data.personalInfo.phone}</span>
                     </div>
                 </div>
                 <div className="creative-banner">
-                    <p>{data.objective}</p>
+                    <p style={{ borderLeft: `4px solid ${accentColor}`, paddingLeft: '0.6rem', color: '#fff' }}>{data.objective}</p>
                 </div>
             </header>
 
             <div className="creative-body">
                 <div className="creative-column">
-                    <h3 className="creative-title">Professional Path</h3>
+                    <h3 className="creative-title" style={{ color: accentTextColor }}>Professional Path</h3>
                     {data.experience.map((exp, i) => (
                         <div key={i} className="creative-entry">
                             <div className="creative-meta">
@@ -33,7 +33,7 @@ const TemplateC = ({ data }) => {
                 </div>
 
                 <div className="creative-column">
-                    <h3 className="creative-title">Education & Other</h3>
+                    <h3 className="creative-title" style={{ color: accentTextColor }}>Education & Other</h3>
                     <div className="creative-group">
                         {data.education.map((edu, i) => (
                             <div key={i} className="creative-entry">
@@ -43,13 +43,13 @@ const TemplateC = ({ data }) => {
                         ))}
                     </div>
 
-                    <h3 className="creative-title">Expertise</h3>
+                    <h3 className="creative-title" style={{ color: accentTextColor }}>Expertise</h3>
                     <div className="creative-skills">
                         <p><strong>Technical:</strong> {data.skills.technical}</p>
                         <p><strong>Soft:</strong> {data.skills.soft}</p>
                     </div>
 
-                    <h3 className="creative-title">Distinctions</h3>
+                    <h3 className="creative-title" style={{ color: accentTextColor }}>Distinctions</h3>
                     <p>{data.certifications}</p>
                 </div>
             </div>
