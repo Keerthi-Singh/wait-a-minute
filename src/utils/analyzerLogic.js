@@ -1,107 +1,126 @@
+import { careers } from '../data/careers';
+
 /**
- * Analyzes user answers and returns a career recommendation based on rule-based logic.
- * @param {Object} answers - Object where keys are question indices and values are the selected option strings.
- * @returns {Object} - The career recommendation object.
+ * Analyzes user answers and returns top career recommendations using a weighted scoring system.
+ * @param {Object} answers - Keys are question indices, values are the strings selected.
+ * @returns {Object} - Primary and secondary careers with details.
  */
 export const analyzeCareer = (answers) => {
-    const scores = {
-        tech: 0,
-        creative: 0,
-        leadership: 0,
-        social: 0,
-        research: 0
-    };
+    // 1) Initialize scores
+    let scoredCareers = careers.map(c => ({ ...c, score: 0, matchedTraits: [] }));
 
-    // Iterate through answers and assign points to categories
-    Object.entries(answers).forEach(([index, value]) => {
-        const idx = parseInt(index);
+    // 2) Compare user answers
+    // answers map to questions:
+    // 0: interests, 1: subject, 2: workStyle, 3: strength,
+    // 4: techVsNonTech, 5: creativityVsLogic, 6: teamVsIndividual, 7: goal
 
-        // Q1: Interests
-        if (idx === 0) {
-            if (value.includes('patterns and code')) scores.tech += 2;
-            if (value.includes('visual elements')) scores.creative += 2;
-            if (value.includes('Organizing people')) scores.leadership += 2;
-            if (value.includes('Investigating data')) scores.research += 2;
+    scoredCareers.forEach(career => {
+        // Evaluate Q1: Interests
+        if (answers[0] === career.interests) {
+            career.score += 3;
+            career.matchedTraits.push("Core Interests");
+        } else if (answers[0] && career.domain === "Technology" && answers[0].includes("logical")) {
+            career.score += 1; // partial
         }
-        // Q2: Subjects
-        if (idx === 1) {
-            if (value.includes('Engineering')) scores.tech += 2;
-            if (value.includes('Psychology')) scores.social += 2;
-            if (value.includes('Visual Arts')) scores.creative += 2;
-            if (value.includes('Business')) scores.leadership += 2;
+
+        // Evaluate Q2: Subjects
+        if (answers[1] === career.subject) {
+            career.score += 3;
+            if (!career.matchedTraits.includes("Academic Focus")) career.matchedTraits.push("Academic Focus");
+        } else if (answers[1] && career.domain === "Science & Core" && answers[1].includes("Engineering")) {
+            career.score += 1;
         }
-        // Q3: Work style
-        if (idx === 2) {
-            if (value.includes('logical steps')) scores.tech += 1;
-            if (value.includes('creative')) scores.creative += 2;
-            if (value.includes('Delegating')) scores.leadership += 2;
-            if (value.includes('Deep exploration')) scores.research += 1;
+
+        // Evaluate Q3: Work Style
+        if (answers[2] === career.workStyle) {
+            career.score += 3;
+            career.matchedTraits.push("Work Style");
+        } else if (answers[2] && answers[2].includes("logical") && career.traits.includes("logic")) {
+            career.score += 1;
         }
-        // Q4: Strengths
-        if (idx === 3) {
-            if (value.includes('analytical')) scores.tech += 1;
-            if (value.includes('help people')) scores.social += 2;
-            if (value.includes('artistic')) scores.creative += 2;
-            if (value.includes('Leadership')) scores.leadership += 2;
+
+        // Evaluate Q4: Strengths
+        if (answers[3] === career.strength) {
+            career.score += 3;
+            career.matchedTraits.push("Personal Strengths");
+        } else if (answers[3] && answers[3].includes("artistic") && career.domain === "Creative") {
+            career.score += 1;
         }
-        // Q5: Tech vs Non-tech
-        if (idx === 4) {
-            if (value.includes('software')) scores.tech += 2;
-            if (value.includes('Marketing')) scores.leadership += 1;
-            if (value.includes('UI/UX')) scores.creative += 2;
-            if (value.includes('Management')) scores.leadership += 2;
+
+        // Evaluate Q5: Tech vs Non-tech
+        if (answers[4] === career.techVsNonTech) {
+            career.score += 3;
+            career.matchedTraits.push("Industry Preference");
+        } else if (answers[4] && answers[4].includes("software") && career.domain === "Technology") {
+            career.score += 1;
         }
-        // Q6: Creativity vs Logic
-        if (idx === 5) {
-            if (value.includes('algorithms')) scores.tech += 2;
-            if (value.includes('Instinct')) scores.creative += 2;
-            if (value.includes('Practicality')) scores.leadership += 1;
-            if (value.includes('Collaborative')) scores.social += 1;
+
+        // Evaluate Q6: Creativity vs Logic
+        if (answers[5] === career.creativityVsLogic) {
+            career.score += 3;
+        } else if (answers[5] && answers[5].includes("Instinct") && career.traits.includes("creative")) {
+            career.score += 1;
         }
-        // Q8: Career Goal
-        if (idx === 7) {
-            if (value.includes('Technical innovation')) scores.tech += 2;
-            if (value.includes('Financial stability')) scores.leadership += 1;
-            if (value.includes('Social impact')) scores.social += 2;
-            if (value.includes('Personal prestige')) scores.leadership += 2;
+
+        // Evaluate Q7: Team vs Individual
+        if (answers[6] === career.teamVsIndividual) {
+            career.score += 3;
+            career.matchedTraits.push("Collaboration Style");
+        } else if (answers[6] && answers[6].includes("solo") && career.traits.includes("focus")) {
+            career.score += 1;
+        }
+
+        // Evaluate Q8: Career Goal
+        if (answers[7] === career.goal) {
+            career.score += 3;
+            career.matchedTraits.push("Long-term Goals");
+        }
+
+        // Penalize mismatched conflict if defined
+        if (career.conflict && answers[7] === career.conflict) {
+            career.score -= 1;
         }
     });
 
-    // Find the category with the highest score
-    const topCategory = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    // Sort by score descending
+    scoredCareers.sort((a, b) => b.score - a.score);
 
-    const recommendations = {
-        tech: {
-            career: 'Full-Stack Software Engineer',
-            description: 'You possess a strong logical mind and a passion for building complex systems. Your ability to break down problems makes you ideal for software architecture and technical innovation.',
-            skills: ['System Design', 'JavaScript/TypeScript', 'Problem Solving', 'Algorithm Optimization'],
-            goals: ['Lead a technical team', 'Build scalable applications', 'Master Cloud Infrastructure']
+    const primaryOption = scoredCareers[0];
+    const secondaryOption = scoredCareers[1];
+
+    // Max potential score is ~24-26 depending on partial matches, 
+    // let's base it out of around 24 for percentage.
+    let compScore = Math.round((primaryOption.score / 24) * 100);
+    if (compScore > 98) compScore = 98; // Realistic cap
+    if (compScore < 40) compScore = 55 + Math.floor(Math.random() * 10); // fallback
+
+    return {
+        career: primaryOption.title, // Keep old `career` field for compatibility in some places, but use primaryCareer structure
+        primaryCareer: {
+            title: primaryOption.title,
+            domain: primaryOption.domain,
+            description: `This career is an excellent match because your profile strongly aligns with ${primaryOption.matchedTraits.join(', ')}.`,
+            skills: primaryOption.recommendedSkills,
+            goalsRoadmap: primaryOption.goalsRoadmap,
+            difficulty: primaryOption.difficultyLevel
         },
-        creative: {
-            career: 'UI/UX Product Designer',
-            description: 'Your blend of artistic vision and user-centric thinking suggests a brilliant career in design. You have a natural eye for aesthetics and how humans interact with digital spaces.',
-            skills: ['Visual Design', 'User Research', 'Prototyping', 'Design Systems'],
-            goals: ['Design world-class interfaces', 'Lead creative direction', 'Improve digital accessibility']
+        secondaryCareer: {
+            title: secondaryOption.title,
+            domain: secondaryOption.domain,
+            description: `A strong alternative path that also utilizes your skills in ${secondaryOption.domain}.`,
+            skills: secondaryOption.recommendedSkills,
+            goalsRoadmap: secondaryOption.goalsRoadmap,
+            difficulty: secondaryOption.difficultyLevel
         },
-        leadership: {
-            career: 'Strategic Product Manager',
-            description: 'You are a natural leader with a keen eye for business operations. You excel at organizing people, managing complex timelines, and driving high-level strategy.',
-            skills: ['Strategic Planning', 'Agile Management', 'Data-Driven Decision Making', 'Stakeholder Communication'],
-            goals: ['Executive leadership roles', 'Scaling business operations', 'Pioneering market entry']
-        },
-        social: {
-            career: 'Human-Centered Program Manager',
-            description: 'Your empathy and desire for social impact are your greatest assets. You excel in environments where you can help people and drive meaningful community or educational change.',
-            skills: ['Empathy & EQ', 'Public Speaking', 'Program Development', 'Conflict Resolution'],
-            goals: ['Create social impact', 'Design educational programs', 'Non-profit leadership']
-        },
-        research: {
-            career: 'Data Scientist & AI Researcher',
-            description: 'Your curiosity and analytical depth lead you toward the frontier of knowledge. You are best suited for roles that involve investigating data to find hidden insights.',
-            skills: ['Statistical Analysis', 'Python/R', 'Machine Learning', 'Data Visualization'],
-            goals: ['Publish groundbreaking research', 'Develop AI models', 'Influence policy through data']
-        }
+        compatibilityScore: compScore,
+        strengthsMatched: primaryOption.matchedTraits,
+        missingSkills: primaryOption.recommendedSkills, // for simplicity
+        roadmap: primaryOption.goalsRoadmap,
+
+        // Backwards compatibility for unmodified UI
+        description: `This career perfectly reflects your strengths in ${primaryOption.matchedTraits.join(' and ')}.`,
+        skills: primaryOption.recommendedSkills,
+        goals: primaryOption.goalsRoadmap
     };
-
-    return recommendations[topCategory] || recommendations.tech;
 };
+

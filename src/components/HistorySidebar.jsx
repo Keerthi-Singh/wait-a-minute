@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './HistorySidebar.css';
 import { useAuth } from '../contexts/AuthContext';
-import { listenToAnalyses } from '../firebase/firebase';
+import { listenToAnalyses, deleteAnalysisForUser, renameAnalysisForUser } from '../firebase/firebase';
 
 /* ── Inline SVG Icons (professional, no emojis) ── */
 const IconHome = () => (
@@ -41,6 +41,8 @@ const HistorySidebar = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState(null);
+  const [renamingId, setRenamingId] = useState(null);
+  const [renameText, setRenameText] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -66,15 +68,61 @@ const HistorySidebar = ({ isOpen, onClose }) => {
   }, [user]);
 
   const handleClick = (item) => {
+    // Prevent overriding if we are currently editing
+    if (renamingId === item.id) return;
     setSelected(item.id);
     const payload = item.result || item;
-    localStorage.setItem('careerResult', JSON.stringify(payload));
-    navigate('/result');
+
+    if (item.type === 'intelligence_lab') {
+      localStorage.setItem('intelligenceResult', JSON.stringify(payload));
+      navigate('/intelligence-result');
+    } else if (item.type === 'readiness_check') {
+      localStorage.setItem('readinessResult', JSON.stringify(payload));
+      navigate('/readiness-result');
+    } else {
+      localStorage.setItem('careerResult', JSON.stringify(payload));
+      navigate('/result');
+    }
+
     if (onClose) onClose();
   };
 
   const handleNavClick = () => {
     if (onClose) onClose();
+  };
+
+  const handleEditClick = (e, item) => {
+    e.stopPropagation();
+    setRenamingId(item.id);
+    setRenameText(item.name || (item.result && item.result.career) || 'Untitled Analysis');
+  };
+
+  const handleRenameSave = async (e, item) => {
+    e.stopPropagation();
+    if (!renameText.trim()) return;
+    try {
+      await renameAnalysisForUser(user.uid, item.id, renameText.trim());
+      setRenamingId(null);
+    } catch (err) {
+      console.warn("Rename failed", err);
+    }
+  };
+
+  const handleRenameKeyDown = (e, item) => {
+    if (e.key === 'Enter') handleRenameSave(e, item);
+    if (e.key === 'Escape') setRenamingId(null);
+  };
+
+  const handleDeleteClick = async (e, item) => {
+    e.stopPropagation();
+    if (window.confirm('Are you sure you want to delete this analysis?')) {
+      try {
+        await deleteAnalysisForUser(user.uid, item.id);
+        if (selected === item.id) setSelected(null);
+      } catch (err) {
+        console.warn("Delete failed", err);
+      }
+    }
   };
 
   return (
@@ -140,16 +188,52 @@ const HistorySidebar = ({ isOpen, onClose }) => {
           {loading && <div className="sidebar-status">Loading…</div>}
           {error && <div className="sidebar-status sidebar-error">{error}</div>}
           {items.map(item => (
-            <button
+            <div
               key={item.id}
               className={`sidebar-history-item ${selected === item.id ? 'selected' : ''}`}
-              onClick={() => handleClick(item)}
             >
-              <div className="sidebar-history-title">{item.name || item.result?.career || 'Untitled Analysis'}</div>
-              <div className="sidebar-history-date">
-                {item.createdAt && item.createdAt.toDate ? item.createdAt.toDate().toLocaleDateString() : ''}
+              <div className="sidebar-history-content" onClick={() => handleClick(item)}>
+                {renamingId === item.id ? (
+                  <input
+                    type="text"
+                    className="sidebar-history-rename-input"
+                    value={renameText}
+                    onChange={(e) => setRenameText(e.target.value)}
+                    onKeyDown={(e) => handleRenameKeyDown(e, item)}
+                    onBlur={(e) => handleRenameSave(e, item)}
+                    autoFocus
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                ) : (
+                  <div className="sidebar-history-title">
+                    {item.name || (item.result && item.result.career) || 'Untitled Analysis'}
+                  </div>
+                )}
+                <div className="sidebar-history-date">
+                  {item.createdAt && item.createdAt.toDate ? item.createdAt.toDate().toLocaleDateString() : ''}
+                  {item.result && (item.result.primaryCareer || item.result.topCareer) && (
+                    <span className="sidebar-history-tag">
+                      {' · '}
+                      {(item.result.primaryCareer || item.result.topCareer).domain}
+                    </span>
+                  )}
+                </div>
               </div>
-            </button>
+              <div className="sidebar-history-actions">
+                <button className="icon-btn edit-btn" title="Rename" onClick={(e) => handleEditClick(e, item)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                </button>
+                <button className="icon-btn delete-btn" title="Delete" onClick={(e) => handleDeleteClick(e, item)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           ))}
           {!loading && items.length === 0 && (
             <div className="sidebar-status">No history yet — run the Analyzer!</div>

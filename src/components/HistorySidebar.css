@@ -160,15 +160,14 @@
 
 /* ── History items ── */
 .sidebar-history-item {
+  position: relative;
   text-align: left;
-  padding: 0.6rem 0.8rem;
   border-radius: 10px;
   border: none;
   background: transparent;
-  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  justify-content: space-between;
   transition: all 0.2s ease;
   font-family: inherit;
   color: var(--text-muted);
@@ -185,6 +184,16 @@
   color: var(--text-main);
 }
 
+.sidebar-history-content {
+  flex: 1;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+
 .sidebar-history-title {
   font-weight: 500;
   font-size: 0.85rem;
@@ -195,10 +204,63 @@
   white-space: nowrap;
 }
 
+.sidebar-history-rename-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--primary);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+}
+
 .sidebar-history-date {
   font-size: 0.72rem;
   color: var(--text-muted);
   opacity: 0.7;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-history-tag {
+  color: var(--primary);
+  margin-left: 2px;
+}
+
+.sidebar-history-actions {
+  display: flex;
+  gap: 2px;
+  padding-right: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-history-item:hover .sidebar-history-actions {
+  opacity: 1;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.icon-btn.delete-btn:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
 }
 
 /* ── Bottom user info ── */

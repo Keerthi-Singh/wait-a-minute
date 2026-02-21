@@ -57,6 +57,20 @@ export const saveAnalysisForUser = async (uid, analysis) => {
   return docRef.id;
 };
 
+// Delete an analysis
+export const deleteAnalysisForUser = async (uid, analysisId) => {
+  if (!uid || !analysisId) throw new Error('Missing uid or analysisId');
+  const docRef = doc(db, 'users', uid, 'analyses', analysisId);
+  await deleteDoc(docRef);
+};
+
+// Rename an analysis
+export const renameAnalysisForUser = async (uid, analysisId, newName) => {
+  if (!uid || !analysisId) throw new Error('Missing uid or analysisId');
+  const docRef = doc(db, 'users', uid, 'analyses', analysisId);
+  await setDoc(docRef, { name: newName }, { merge: true });
+};
+
 // Ensure top-level user document exists (merge so we don't overwrite)
 export const ensureUserDocument = async (uid, email) => {
   if (!uid) return;

@@ -7,6 +7,10 @@ import PrivateRoute from './components/PrivateRoute'
 import HistorySidebar from './components/HistorySidebar'
 import Analyzer from './pages/Analyzer'
 import Result from './pages/Result'
+import IntelligenceLab from './pages/IntelligenceLab'
+import IntelligenceResult from './pages/IntelligenceResult'
+import ReadinessCheck from './pages/ReadinessCheck'
+import ReadinessResult from './pages/ReadinessResult'
 import ResumeForm from './pages/resume/ResumeForm'
 import TemplateSelect from './pages/resume/TemplateSelect'
 import ResumePreview from './pages/resume/ResumePreview'
@@ -27,6 +31,10 @@ function AnimatedRoutes() {
                 <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
                 <Route path="/analyzer" element={<PrivateRoute><Analyzer /></PrivateRoute>} />
                 <Route path="/result" element={<PrivateRoute><Result /></PrivateRoute>} />
+                <Route path="/intelligence-lab" element={<PrivateRoute><IntelligenceLab /></PrivateRoute>} />
+                <Route path="/intelligence-result" element={<PrivateRoute><IntelligenceResult /></PrivateRoute>} />
+                <Route path="/readiness-check" element={<PrivateRoute><ReadinessCheck /></PrivateRoute>} />
+                <Route path="/readiness-result" element={<PrivateRoute><ReadinessResult /></PrivateRoute>} />
                 <Route path="/auth/login" element={<Login />} />
                 <Route path="/auth/register" element={<Register />} />
                 <Route path="/auth/forgot" element={<Forgot />} />

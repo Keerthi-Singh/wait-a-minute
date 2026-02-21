@@ -38,9 +38,8 @@ const Analyzer = () => {
         // Perform Rule-Based Analysis
         const result = analyzeCareer(answers);
 
-        // Ask user for a name for this analysis (simple prompt for now)
-        let analysisName = window.prompt('Name this analysis (e.g. "Product Manager Path Q1")', 'My Analysis');
-        if (!analysisName) analysisName = 'My Analysis';
+        // Name this analysis automatically based on the primary career
+        const analysisName = result.primaryCareer ? result.primaryCareer.title : (result.career || 'My Analysis');
 
         // Save to localStorage for quick access
         localStorage.setItem('careerResult', JSON.stringify(result));
@@ -63,7 +62,10 @@ const Analyzer = () => {
                     careerTitle: result.career || null,
                     description: result.description || null,
                     skills: result.skills || [],
-                    goals: result.goals || []
+                    goals: result.goals || [],
+                    primaryCareer: result.primaryCareer || null,
+                    secondaryCareer: result.secondaryCareer || null,
+                    compatibilityScore: result.compatibilityScore || null
                 };
                 await saveAnalysisForUser(user.uid, analysisToSave);
             } else {

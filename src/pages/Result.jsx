@@ -32,6 +32,21 @@ const Result = () => {
         visible: { y: 0, opacity: 1 }
     };
 
+    // Support both old and new formats
+    const isNewFormat = !!result.primaryCareer;
+
+    // Fallbacks for backwards compatibility
+    const compatScore = result.compatibilityScore || 90;
+    const primaryTitle = isNewFormat ? result.primaryCareer.title : result.career;
+    const primaryDesc = isNewFormat ? result.primaryCareer.description : result.description;
+    const difficulty = isNewFormat ? result.primaryCareer.difficulty : "High";
+
+    const secondaryCareer = result.secondaryCareer;
+
+    const strengths = isNewFormat ? result.strengthsMatched : [];
+    const skillsToDevelop = isNewFormat ? result.missingSkills : result.skills;
+    const roadmapGoals = isNewFormat ? result.roadmap : result.goals;
+
     return (
         <motion.div
             className="result-page"
@@ -42,31 +57,65 @@ const Result = () => {
             <div className="result-container">
                 <motion.div className="result-header" variants={itemVariants}>
                     <span className="badge">AI-Powered Career Intelligence</span>
-                    <h1 className="career-title">{result.career}</h1>
-                    <p className="career-description">{result.description}</p>
+                    <div className="compatibility-badge"><span>{compatScore}%</span> Match</div>
+                    <h1 className="career-title">{primaryTitle}</h1>
+                    <div className="career-meta">
+                        {isNewFormat && <span className="meta-tag domain-tag">{result.primaryCareer.domain}</span>}
+                        <span className="meta-tag effort-tag">Effort: {difficulty}</span>
+                    </div>
+                    <p className="career-description">{primaryDesc}</p>
                 </motion.div>
+
+                {secondaryCareer && (
+                    <motion.div className="secondary-career-card" variants={itemVariants}>
+                        <div className="secondary-indicator">Alternative Path</div>
+                        <div className="secondary-content">
+                            <h4>{secondaryCareer.title}</h4>
+                            <p>{secondaryCareer.description}</p>
+                        </div>
+                        <div className="secondary-domain">{secondaryCareer.domain}</div>
+                    </motion.div>
+                )}
 
                 <div className="result-grid">
                     <motion.section className="skills-section" variants={itemVariants}>
-                        <h3 className="section-title">Core Skills to Master</h3>
-                        <div className="skills-grid">
-                            {result.skills.map((skill, index) => (
-                                <div key={index} className="skill-card">
-                                    <div className="skill-icon">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                        </svg>
-                                    </div>
-                                    <span>{skill}</span>
+                        {strengths && strengths.length > 0 && (
+                            <div className="skill-group">
+                                <h3 className="section-title">Strengths Matched</h3>
+                                <div className="skills-grid strengths">
+                                    {strengths.map((s, i) => (
+                                        <div key={i} className="skill-card strength-card">
+                                            <div className="skill-icon success">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                                            </div>
+                                            <span>{s}</span>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+                        )}
+
+                        <div className="skill-group">
+                            <h3 className="section-title">Skills to Develop</h3>
+                            <div className="skills-grid">
+                                {skillsToDevelop.map((skill, index) => (
+                                    <div key={index} className="skill-card">
+                                        <div className="skill-icon">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                            </svg>
+                                        </div>
+                                        <span>{skill}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </motion.section>
 
                     <motion.section className="goals-section" variants={itemVariants}>
-                        <h3 className="section-title">Your Roadmap</h3>
+                        <h3 className="section-title">6-12 Month Roadmap</h3>
                         <div className="timeline">
-                            {result.goals.map((goal, index) => (
+                            {roadmapGoals.map((goal, index) => (
                                 <div key={index} className="timeline-item">
                                     <div className="timeline-dot"></div>
                                     <div className="timeline-content">
@@ -79,7 +128,7 @@ const Result = () => {
                     </motion.section>
                 </div>
 
-                <JobDiscovery careerTitle={result.career} />
+                <JobDiscovery careerTitle={primaryTitle} />
 
                 <motion.div className="result-actions" variants={itemVariants}>
                     <button className="retake-btn" onClick={() => navigate('/analyzer')}>
