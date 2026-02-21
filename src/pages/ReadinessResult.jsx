@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './ReadinessResult.css';
 
 export default function ReadinessResult() {
@@ -17,23 +17,58 @@ export default function ReadinessResult() {
 
     const {
         career, readinessScore, breakdown,
-        missingSkills, burnoutRisk, insight,
+        maturity, missingSkills, burnoutRisk, insight,
         improvementPath, backupPaths
     } = result;
 
-    const vContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2 } } };
+    const vContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } };
     const vItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
     return (
         <motion.div className="readiness-res-page" variants={vContainer} initial="hidden" animate="visible">
             <div className="readiness-res-container">
                 <motion.div variants={vItem} className="readiness-res-header">
-                    <span className="readiness-badge">Career Readiness Diagnostic</span>
+                    <span className="readiness-badge">Career Journey Diagnostic</span>
                     <h1>{career.title}</h1>
                     <div className={`score-meter ${readinessScore >= 80 ? 'high' : readinessScore >= 50 ? 'medium' : 'low'}`}>
-                        <strong>{readinessScore}%</strong> Overall Readiness
+                        <strong>{readinessScore}%</strong> Overall Role Readiness
                     </div>
                     <p className="readiness-insight">{insight}</p>
+                </motion.div>
+
+                {/* --- NEW MATURITY CARD --- */}
+                <motion.div variants={vItem} className="readiness-card maturity-card">
+                    <div className="maturity-header">
+                        <div className="maturity-level-badge">Level {maturity.level}</div>
+                        <div className="maturity-titles">
+                            <h3>{maturity.title}</h3>
+                            <p>{maturity.insight}</p>
+                        </div>
+                    </div>
+
+                    <div className="maturity-grid">
+                        <div className="m-col role-readiness">
+                            <h4>Current Hierarchy Clearances</h4>
+                            <div className="role-tags">
+                                {maturity.roleReadiness.map((rr, i) => (
+                                    <span key={i} className={`role-tag ${rr.ready ? 'ready' : 'not-ready'}`}>
+                                        {rr.ready ? '✔' : '✖'} {rr.role}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="m-col ladder">
+                            <h4>Standard Advancement Path</h4>
+                            <div className="ladder-steps">
+                                {maturity.ladder.map((l, i) => (
+                                    <div key={i} className={`ladder-step ${i <= maturity.level ? 'achieved' : ''}`}>
+                                        <div className="l-dot"></div>
+                                        <span>{l}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </motion.div>
 
                 <div className="readiness-res-grid">
@@ -43,38 +78,38 @@ export default function ReadinessResult() {
                             <h3>Readiness Breakdown</h3>
 
                             <div className="r-score-group">
-                                <label>Skill & Trait Match</label>
+                                <label>Core Capability Match</label>
                                 <div className="r-bar-bg"><div className="r-bar-fill blue" style={{ width: `${breakdown.skillMatch}%` }}></div></div>
                                 <span className="r-bar-val">{breakdown.skillMatch}%</span>
                             </div>
 
                             <div className="r-score-group">
-                                <label>Effort Alignment</label>
+                                <label>Effort & Grind Alignment</label>
                                 <div className="r-bar-bg"><div className="r-bar-fill purple" style={{ width: `${breakdown.effortAlignment}%` }}></div></div>
                                 <span className="r-bar-val">{breakdown.effortAlignment}%</span>
                             </div>
 
                             <div className="r-score-group">
-                                <label>Time Commitment Fit</label>
+                                <label>Time & Finance Run-Rate</label>
                                 <div className="r-bar-bg"><div className="r-bar-fill green" style={{ width: `${breakdown.timeFit}%` }}></div></div>
                                 <span className="r-bar-val">{breakdown.timeFit}%</span>
                             </div>
 
                             <div className="r-score-group">
-                                <label>Stability & Practical Feasibility</label>
+                                <label>Stability Reality Match</label>
                                 <div className="r-bar-bg"><div className="r-bar-fill orange" style={{ width: `${breakdown.feasibility}%` }}></div></div>
                                 <span className="r-bar-val">{breakdown.feasibility}%</span>
                             </div>
                         </div>
 
                         <div className="readiness-card threat-card">
-                            <h3>Reality & Risk Assessment</h3>
+                            <h3>Threat & Risk Mapping</h3>
                             <div className="r-metric-row">
                                 <span>Projected Burnout Risk:</span>
                                 <strong className={`val-${burnoutRisk.split(' ')[0].toLowerCase()}`}>{burnoutRisk}</strong>
                             </div>
                             <div className="r-metric-row">
-                                <span>Industry Demand Check:</span>
+                                <span>Industry Saturation:</span>
                                 <strong className="val-text">{career.realityCheck}</strong>
                             </div>
                         </div>
@@ -85,8 +120,8 @@ export default function ReadinessResult() {
 
                         {missingSkills.length > 0 && (
                             <div className="readiness-card gap-card">
-                                <h3>Critical Skill Gaps Detected</h3>
-                                <p>You are missing these traits/skills which are essential for this role:</p>
+                                <h3>Critical Trait Deficits</h3>
+                                <p>You must actively compensate for missing these non-negotiable traits:</p>
                                 <div className="skill-tags mt-4">
                                     {missingSkills.map((s, i) => <span key={i} className="skill-tag danger">{s}</span>)}
                                 </div>
@@ -94,7 +129,7 @@ export default function ReadinessResult() {
                         )}
 
                         <div className="readiness-card action-card">
-                            <h3>Immediate Improvement Path</h3>
+                            <h3>Immediate Tactical Pivot</h3>
                             <ul className="r-action-list">
                                 {improvementPath.map((path, idx) => (
                                     <li key={idx}>{path}</li>
@@ -103,8 +138,8 @@ export default function ReadinessResult() {
                         </div>
 
                         <div className="readiness-card backups-card">
-                            <h3>Safer / Alternative Paths</h3>
-                            <p className="r-desc">If this career's readiness is low, consider pivoting to these aligned paths:</p>
+                            <h3>Strategic Failsafes</h3>
+                            <p className="r-desc">If maturity level stalls, instantly pivot to these adjacent disciplines:</p>
                             <div className="backup-list mt-4">
                                 {backupPaths.map((bp, idx) => (
                                     <div key={idx} className="backup-item">
@@ -119,7 +154,7 @@ export default function ReadinessResult() {
                 </div>
 
                 <motion.div className="intel-actions mt-6" variants={vItem}>
-                    <button className="secondary-btn" onClick={() => navigate('/readiness-check')}>Retake Diagnostic</button>
+                    <button className="secondary-btn" onClick={() => navigate('/readiness-check')}>Re-Evaluate Positioning</button>
                     <button className="primary-readiness" onClick={() => navigate('/')}>Back to Hub</button>
                 </motion.div>
             </div>

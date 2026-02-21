@@ -79,6 +79,134 @@
     font-weight: 500;
 }
 
+/* Maturity Card Component */
+.maturity-card {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(12, 18, 34, 0.9));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    margin-bottom: 2rem;
+}
+
+.maturity-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.maturity-level-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.15);
+    border: 2px solid #f59e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #f59e0b;
+    flex-shrink: 0;
+}
+
+.maturity-titles h3 {
+    margin: 0 0 0.5rem 0 !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 1.8rem !important;
+    color: #f8fafc !important;
+}
+
+.maturity-titles p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 1.1rem;
+}
+
+.maturity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.m-col h4 {
+    margin: 0 0 1rem 0;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.role-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.role-tag {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.role-tag.ready {
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.role-tag.not-ready {
+    color: #f43f5e;
+    border: 1px dashed rgba(244, 63, 94, 0.3);
+    opacity: 0.6;
+}
+
+.ladder-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.ladder-steps::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ladder-step {
+    position: relative;
+    color: #64748b;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.ladder-step .l-dot {
+    position: absolute;
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #334155;
+}
+
+.ladder-step.achieved {
+    color: #f8fafc;
+}
+
+.ladder-step.achieved .l-dot {
+    background: #f59e0b;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
 .readiness-res-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

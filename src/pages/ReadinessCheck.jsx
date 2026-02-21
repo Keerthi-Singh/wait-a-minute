@@ -16,6 +16,10 @@ export default function ReadinessCheck() {
 
     // Form states
     const [targetCareerId, setTargetCareerId] = useState('');
+    const [careerStage, setCareerStage] = useState('');
+    const [experienceTypes, setExperienceTypes] = useState([]);
+    const [skillDepth, setSkillDepth] = useState('');
+
     const [currentSkills, setCurrentSkills] = useState([]);
     const [effortTolerance, setEffortTolerance] = useState('');
     const [timeAvailability, setTimeAvailability] = useState('');
@@ -33,7 +37,15 @@ export default function ReadinessCheck() {
     const handleSubmit = async () => {
         setIsSubmitting(true);
         const compiledAnswers = {
-            targetCareerId, currentSkills, effortTolerance, timeAvailability, financialPressure, stabilityNeeds
+            targetCareerId,
+            careerStage,
+            experienceTypes,
+            skillDepth,
+            currentSkills,
+            effortTolerance,
+            timeAvailability,
+            financialPressure,
+            stabilityNeeds
         };
 
         const result = calculateReadiness(compiledAnswers);
@@ -45,7 +57,7 @@ export default function ReadinessCheck() {
                 const { saveAnalysisForUser } = await import('../firebase/firebase');
                 if (user && user.uid) {
                     const analysisToSave = {
-                        name: `Readiness Check: ${result.career.title}`,
+                        name: `Readiness: ${result.career.title}`,
                         type: 'readiness_check',
                         compiledAnswers,
                         result,
@@ -69,21 +81,21 @@ export default function ReadinessCheck() {
             <div className="readiness-container">
                 {step === 0 && (
                     <motion.div className="readiness-step intro-step" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                        <h1>Career Readiness Check</h1>
-                        <p className="subtitle">Evaluate your preparedness for your dream career.</p>
+                        <h1>Career Journey Mapper</h1>
+                        <p className="subtitle">Evaluate your exact career stage and readiness.</p>
                         <div className="intro-card">
-                            <p>👉 Found a career you love? Let's see if you're actually ready to pursue it right now.</p>
-                            <p>👉 We evaluate your skill gaps, effort tolerance, financial flexibility, and stability needs.</p>
-                            <p>👉 Get a brutally honest Reality Check Score before committing years of your life.</p>
+                            <p>👉 Found a career you love? Let's see exactly where you stand in that journey today.</p>
+                            <p>👉 We map your current phase (Student, Intern, Switcher), identify missing experience, and analyze skill gaps.</p>
+                            <p>👉 Get a brutally honest Role-Readiness assessment before committing years of your life.</p>
                         </div>
-                        <button className="cta-button primary-readiness" onClick={handleNext}>Check My Readiness</button>
+                        <button className="cta-button primary-readiness" onClick={handleNext}>Map My Journey</button>
                     </motion.div>
                 )}
 
                 {step === 1 && (
                     <motion.div className="readiness-step" initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
                         <h2>1. Select Your Target Career</h2>
-                        <p>Which career path are you aiming for?</p>
+                        <p>Which career path are you mapping?</p>
 
                         <div className="q-block mt-4">
                             <select
@@ -102,7 +114,54 @@ export default function ReadinessCheck() {
 
                 {step === 2 && (
                     <motion.div className="readiness-step" initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-                        <h2>2. Current Skills & Effort Profile</h2>
+                        <h2>2. Current Career Stage</h2>
+                        <p>Where are you currently in your journey?</p>
+
+                        <div className="q-block mt-4">
+                            <label>General Life Phase:</label>
+                            <select
+                                className="intel-input"
+                                value={careerStage}
+                                onChange={(e) => setCareerStage(e.target.value)}
+                            >
+                                <option value="" disabled>Select your stage...</option>
+                                <option value="Student">Student</option>
+                                <option value="Learning Skills">Learning Skills Independently</option>
+                                <option value="Doing Projects">Doing Projects (Building Portfolio)</option>
+                                <option value="Internship Done">Completed Internships</option>
+                                <option value="Freelancing">Freelancing / Gig Work</option>
+                                <option value="Working (Entry level)">Working (Entry Level in field)</option>
+                                <option value="Switching Career">Switching Career (From different field)</option>
+                            </select>
+                        </div>
+
+                        <div className="q-block mt-4">
+                            <label>What kind of experience do you actually have? (Select all that apply)</label>
+                            <div className="options-grid multi">
+                                {['Projects', 'Internships', 'Certifications', 'Job Experience', 'Competitions', 'Portfolio work'].map(opt => (
+                                    <div key={opt} className={`intel-opt ${experienceTypes.includes(opt) ? 'active' : ''}`} onClick={() => toggleArrayItem(setExperienceTypes, experienceTypes, opt)}>
+                                        {opt}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="q-block mt-4">
+                            <label>What is your overall depth in your chosen core skills?</label>
+                            <div className="options-grid single">
+                                {['Beginner', 'Intermediate', 'Advanced'].map(opt => (
+                                    <div key={opt} className={`intel-opt ${skillDepth === opt ? 'active' : ''}`} onClick={() => setSkillDepth(opt)}>
+                                        {opt}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {step === 3 && (
+                    <motion.div className="readiness-step" initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+                        <h2>3. Current Skills & Effort Profile</h2>
                         <p>Check all the strengths and traits you CURRENTLY possess.</p>
 
                         <div className="q-block">
@@ -128,9 +187,9 @@ export default function ReadinessCheck() {
                     </motion.div>
                 )}
 
-                {step === 3 && (
+                {step === 4 && (
                     <motion.div className="readiness-step" initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-                        <h2>3. Time & Financial Reality</h2>
+                        <h2>4. Time & Financial Reality</h2>
 
                         <div className="q-block">
                             <label>How much dedicated time do you have to achieve stability in this role?</label>
@@ -170,11 +229,11 @@ export default function ReadinessCheck() {
                 {step > 0 && (
                     <div className="intel-actions mt-6">
                         <button className="secondary-btn" onClick={handleBack}>Back</button>
-                        {step < 3 ? (
+                        {step < 4 ? (
                             <button
                                 className="primary-readiness"
                                 onClick={handleNext}
-                                disabled={step === 1 && !targetCareerId}
+                                disabled={(step === 1 && !targetCareerId) || (step === 2 && (!careerStage || !skillDepth))}
                             >
                                 Next
                             </button>
@@ -184,7 +243,7 @@ export default function ReadinessCheck() {
                                 onClick={handleSubmit}
                                 disabled={!timeAvailability || !financialPressure || !stabilityNeeds}
                             >
-                                Calculate Readiness
+                                Map Career Stage
                             </button>
                         )}
                     </div>
@@ -192,10 +251,10 @@ export default function ReadinessCheck() {
 
                 {step > 0 && (
                     <div className="intel-progress mt-4">
-                        <div className="intel-progress-bar" style={{ width: `${(step / 3) * 100}%`, background: '#f59e0b' }}></div>
+                        <div className="intel-progress-bar" style={{ width: `${(step / 4) * 100}%`, background: '#f59e0b' }}></div>
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
