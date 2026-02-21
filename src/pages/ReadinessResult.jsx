@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { generateActionPath } from '../utils/actionPathLogic';
 import './ReadinessResult.css';
 
 export default function ReadinessResult() {
@@ -20,6 +21,8 @@ export default function ReadinessResult() {
         maturity, missingSkills, burnoutRisk, insight,
         improvementPath, backupPaths
     } = result;
+
+    const actionPath = generateActionPath(career);
 
     const vContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } };
     const vItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
@@ -152,6 +155,51 @@ export default function ReadinessResult() {
 
                     </motion.div>
                 </div>
+
+                {/* --- NEW SECTION: CAREER ACTION PATH --- */}
+                <motion.div variants={vItem} className="action-path-section">
+                    <div className="action-path-header readiness-res-header">
+                        <h2>Optimize Your Career Path</h2>
+                        <p className="readiness-insight">Specific actions and certifications to boost your readiness immediately.</p>
+                    </div>
+
+                    <div className="action-path-grid">
+                        <div className="readiness-card skills-card">
+                            <h3>Target Skills Needed Now</h3>
+                            <div className="skill-group">
+                                <h4>Core Fundamentals</h4>
+                                <div className="skill-tags">
+                                    {actionPath.skills.core.map((s, i) => <span key={i} className="skill-tag core">{s}</span>)}
+                                </div>
+                            </div>
+                            <div className="skill-group" style={{ marginTop: '1.5rem' }}>
+                                <h4>Supporting / Adjacent Skills</h4>
+                                <div className="skill-tags">
+                                    {actionPath.skills.supporting.map((s, i) => <span key={i} className="skill-tag support">{s}</span>)}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="action-path-col">
+                            <div className="readiness-card certs-card" style={{ height: '100%' }}>
+                                <h3>High-Impact Certifications</h3>
+                                <p style={{ color: '#94a3b8', marginBottom: '1rem' }}>Completing these jumps your maturity level rapidly:</p>
+                                <ul className="r-action-list">
+                                    {actionPath.certifications.map((c, i) => (
+                                        <li key={i}>{c}</li>
+                                    ))}
+                                </ul>
+
+                                <div className="job-buttons mt-6" style={{ marginTop: 'auto', paddingTop: '2rem' }}>
+                                    <h4 style={{ color: '#94a3b8', marginBottom: '1rem', textTransform: 'uppercase', fontSize: '0.9rem' }}>Real World Demand</h4>
+                                    <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(career.title)}`} target="_blank" rel="noopener noreferrer" className="cta-button google-job" style={{ width: '100%', textAlign: 'center', marginBottom: '0.5rem' }}>
+                                        Scan Live Market Jobs
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
 
                 <motion.div className="intel-actions mt-6" variants={vItem}>
                     <button className="secondary-btn" onClick={() => navigate('/readiness-check')}>Re-Evaluate Positioning</button>
