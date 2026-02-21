@@ -55,7 +55,7 @@
     animation: spin 1s linear infinite;
 }
 
-.core {
+.loader-spinner-core {
     position: absolute;
     top: 45%;
     left: 45%;
@@ -96,6 +96,7 @@
     font-weight: 800;
     background: linear-gradient(135deg, var(--primary), #a855f7);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
 }

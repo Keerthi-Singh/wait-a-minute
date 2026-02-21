@@ -9,7 +9,7 @@ const Loader = () => {
                     <div className="orbit orbit-1"></div>
                     <div className="orbit orbit-2"></div>
                     <div className="orbit orbit-3"></div>
-                    <div className="core"></div>
+                    <div className="loader-spinner-core"></div>
                 </div>
                 <h2 className="loader-text">Analyzing your answers...</h2>
                 <p className="loader-subtext">AI is mapping your ideal career path — just a minute</p>
