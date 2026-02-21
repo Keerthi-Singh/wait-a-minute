@@ -76,6 +76,26 @@ export const analyzeCareer = (answers) => {
             career.matchedTraits.push("Long-term Goals");
         }
 
+        // Evaluate Q9: Academic Intensity
+        if (answers[8] === career.academicIntensity) {
+            career.score += 2;
+        }
+
+        // Evaluate Q10: Risk Tolerance
+        if (answers[9] === career.riskTolerance) {
+            career.score += 2;
+        }
+
+        // Evaluate Q11: Physical Demand
+        if (answers[10] === career.physicalDemand) {
+            career.score += 2;
+        }
+
+        // Evaluate Q12: Social Interaction
+        if (answers[11] === career.socialInteraction) {
+            career.score += 2;
+        }
+
         // Penalize mismatched conflict if defined
         if (career.conflict && answers[7] === career.conflict) {
             career.score -= 1;

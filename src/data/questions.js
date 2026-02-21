@@ -86,5 +86,49 @@ export const careerQuestions = [
             'Social impact and helping individuals',
             'Personal prestige and global leadership'
         ]
+    },
+    {
+        id: 9,
+        topic: 'Academic Intensity',
+        question: 'How much formal education are you willing to undergo?',
+        options: [
+            'Short specialized certifications (6-12 months)',
+            'Standard University Degree (3-4 years)',
+            'In-depth Academic/Professional Masters (5-7 years)',
+            'Lifelong intensive learning and PhDs'
+        ]
+    },
+    {
+        id: 10,
+        topic: 'Risk Tolerance',
+        question: 'How do you view career stability vs. potential reward?',
+        options: [
+            'Absolute security and a guaranteed paycheck',
+            'Balanced growth with moderate stability',
+            'Open to high-stakes risks for massive rewards',
+            'I thrive in unpredictable, high-pressure environments'
+        ]
+    },
+    {
+        id: 11,
+        topic: 'Physical Demand',
+        question: 'What is your ideal work environment physicality?',
+        options: [
+            'Strictly a desk/remote setup',
+            'Comfortable office with occasional movement',
+            'Physically active but indoors (Labs, Studios)',
+            'Outdoors, field-based, or physically intense'
+        ]
+    },
+    {
+        id: 12,
+        topic: 'Social Interaction',
+        question: 'How much social battery do you want to use at work?',
+        options: [
+            'Minimal contact; focus on solo deep work',
+            'Regular collaboration with a small team',
+            'Constant interaction with new people/clients',
+            'Public-facing, performative, or high-stakes leadership'
+        ]
     }
 ];

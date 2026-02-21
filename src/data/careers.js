@@ -20,6 +20,10 @@ export const careers = [
             "Learn Backend (Node.js, Express) and Databases",
             "Build and deploy full-stack projects"
         ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Minimal contact; focus on solo deep work",
         conflict: "Financial stability and steady growth" // partial penalty
     },
     {
@@ -42,7 +46,11 @@ export const careers = [
             "Learn modern frameworks like React",
             "Understand UI/UX principles and accessibility",
             "Build robust client-side applications"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Backend Developer",
@@ -64,7 +72,11 @@ export const careers = [
             "Master database management and querying",
             "Understand cloud infrastructure and APIs",
             "Optimize and scale large systems"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Minimal contact; focus on solo deep work"
     },
     {
         title: "Data Analyst",
@@ -86,7 +98,11 @@ export const careers = [
             "Master Data querying and SQL",
             "Learn visualization tools like Tableau/PowerBI",
             "Communicate data insights effectively"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "AI Engineer",
@@ -108,7 +124,11 @@ export const careers = [
             "Learn traditional machine learning models",
             "Master deep learning frameworks (PyTorch/TensorFlow)",
             "Build AI solutions for real-world problems"
-        ]
+        ],
+        academicIntensity: "Lifelong intensive learning and PhDs",
+        riskTolerance: "Open to high-stakes risks for massive rewards",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Minimal contact; focus on solo deep work"
     },
     {
         title: "Cybersecurity Analyst",
@@ -130,7 +150,11 @@ export const careers = [
             "Learn security protocols and vulnerability assessment",
             "Gain hands-on ethical hacking experience",
             "Attain relevant certifications (CompTIA, CISSP)"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Cloud Engineer",
@@ -152,7 +176,11 @@ export const careers = [
             "Learn cloud platforms concepts",
             "Practice Infrastructure as Code",
             "Earn cloud architect certifications"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "DevOps Engineer",
@@ -174,7 +202,11 @@ export const careers = [
             "Master containerization (Docker)",
             "Learn CI/CD pipelines and deployment automation",
             "Orchestrate with Kubernetes"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "UI/UX Designer",
@@ -196,7 +228,11 @@ export const careers = [
             "Learn design tools (Figma, Sketch)",
             "Build interactive prototypes",
             "Conduct user research and compile case studies"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Product Manager",
@@ -218,7 +254,11 @@ export const careers = [
             "Master market research and user needs analysis",
             "Develop product roadmaps and strategic visions",
             "Lead cross-functional teams to launch"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
     },
     {
         title: "Business Analyst",
@@ -240,7 +280,11 @@ export const careers = [
             "Learn process documentation techniques",
             "Act as a bridge between IT and business stakeholders",
             "Drive data-backed business decisions"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Digital Marketer",
@@ -262,7 +306,11 @@ export const careers = [
             "Master paid advertising platforms (Google, Meta)",
             "Analyze campaign data and ROI",
             "Develop multi-channel marketing strategies"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Open to high-stakes risks for massive rewards",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Financial Analyst",
@@ -284,7 +332,11 @@ export const careers = [
             "Learn to build robust financial models",
             "Gain insights from financial statements",
             "Provide strategic recommendations for growth"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Operations Manager",
@@ -306,7 +358,11 @@ export const careers = [
             "Manage small teams and logistics projects",
             "Master resource allocation and budgeting",
             "Scale business operations efficiently"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Graphic Designer",
@@ -328,7 +384,11 @@ export const careers = [
             "Learn industry-standard editing software",
             "Build a strong personal portfolio",
             "Establish cohesive brand identities"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Content Strategist",
@@ -350,7 +410,11 @@ export const careers = [
             "Learn keyword mapping and SEO basics",
             "Develop comprehensive content calendars",
             "Measure content engagement and pivot strategy"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Video Editor",
@@ -372,7 +436,11 @@ export const careers = [
             "Master timing, pacing, and basic color grading",
             "Delve into motion graphics",
             "Deliver polished, high-retention video content"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Minimal contact; focus on solo deep work"
     },
     {
         title: "Brand Strategist",
@@ -394,7 +462,11 @@ export const careers = [
             "Conduct competitor analysis and audit brands",
             "Develop unique brand core identities",
             "Implement high-level brand campaigns"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Research Scientist",
@@ -416,7 +488,11 @@ export const careers = [
             "Design robust experiments",
             "Publish findings in journals",
             "Lead large research initiatives"
-        ]
+        ],
+        academicIntensity: "Lifelong intensive learning and PhDs",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Healthcare Administrator",
@@ -438,7 +514,11 @@ export const careers = [
             "Manage small clinic/department operations",
             "Optimize patient care workflows",
             "Oversee massive medical facilities"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Environmental Analyst",
@@ -460,7 +540,11 @@ export const careers = [
             "Master GIS and mapping tools",
             "Analyze impact assessment data",
             "Guide sustainable corporate policies"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "IAS / IPS Officer",
@@ -482,7 +566,11 @@ export const careers = [
             "Succeed in the Interview/Personality Test",
             "Complete training at LBSNAA or SVPNPA",
             "Drive district and state level administration"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
     },
     {
         title: "Film Director",
@@ -504,7 +592,11 @@ export const careers = [
             "Build a strong demo reel and portfolio",
             "Assist established directors on set",
             "Pitch and direct feature-length projects"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Open to high-stakes risks for massive rewards",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
     },
     {
         title: "Music Producer",
@@ -526,7 +618,11 @@ export const careers = [
             "Master music theory and sound synthesis",
             "Collaborate with vocalists and artists",
             "Release and market independent music"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Corporate Lawyer",
@@ -548,7 +644,11 @@ export const careers = [
             "Intern with corporate law firms",
             "Pass the Bar Exam",
             "Lead high-stakes corporate negotiations"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Investment Banker",
@@ -570,7 +670,11 @@ export const careers = [
             "Secure summer analyst internships",
             "Master complex financial modeling",
             "Execute massive corporate mergers"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Startup Founder",
@@ -592,7 +696,11 @@ export const careers = [
             "Build an MVP (Minimum Viable Product)",
             "Secure initial funding/seed round",
             "Scale the business to global markets"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Open to high-stakes risks for massive rewards",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
     },
     {
         title: "Psychologist",
@@ -614,7 +722,11 @@ export const careers = [
             "Complete supervised clinical hours",
             "Obtain state licensing for practice",
             "Open an independent clinical practice"
-        ]
+        ],
+        academicIntensity: "Lifelong intensive learning and PhDs",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Wildlife Photographer",
@@ -636,7 +748,11 @@ export const careers = [
             "Study animal behavior and tracking",
             "Build a portfolio in national parks",
             "Publish work in global wildlife magazines"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Minimal contact; focus on solo deep work"
     },
     {
         title: "Chef de Cuisine",
@@ -658,7 +774,11 @@ export const careers = [
             "Climb the ranks from Line Cook to Sous Chef",
             "Develop a signature culinary style",
             "Open/Lead a Michelin-starred restaurant"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
     },
     {
         title: "Architect",
@@ -680,7 +800,11 @@ export const careers = [
             "Complete a long-term internship",
             "Clear licensing examinations",
             "Lead massive architectural urban projects"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "HR Director",
@@ -702,7 +826,11 @@ export const careers = [
             "Gain experience in recruitment and payroll",
             "Master strategic organizational planning",
             "Lead HR for a Fortune 500 company"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Civil Engineer",
@@ -724,7 +852,11 @@ export const careers = [
             "Pass FE and PE examinations",
             "Gain on-site construction experience",
             "Design major public infrastructure"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Social Media Manager",
@@ -746,7 +878,11 @@ export const careers = [
             "Build an independent online presence",
             "Manage small business social accounts",
             "Lead global viral marketing campaigns"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "Open to high-stakes risks for massive rewards",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Nurse Practitioner",
@@ -768,7 +904,11 @@ export const careers = [
             "Earn a Master's or Doctorate in Nursing (MSN/DNP)",
             "Get NP certification and licensing",
             "Lead specialized patient care initiatives"
-        ]
+        ],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Pilot (Commercial)",
@@ -790,7 +930,11 @@ export const careers = [
             "Clear commercial flight training and hours",
             "Earn multi-engine and instrument ratings",
             "Captain major international long-haul flights"
-        ]
+        ],
+        academicIntensity: "Short specialized certifications (6-12 months)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Economist",
@@ -812,7 +956,11 @@ export const careers = [
             "Publish research on market trends",
             "Consult for government or global banks",
             "Lead economic policy for global institutions"
-        ]
+        ],
+        academicIntensity: "Lifelong intensive learning and PhDs",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team"
     },
     {
         title: "Journalist",
@@ -834,7 +982,11 @@ export const careers = [
             "Intern with local news organizations",
             "Specialized in a beat (Politics, Tech, Sports)",
             "Lead investigations for major global media"
-        ]
+        ],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Outdoors, field-based, or physically intense",
+        socialInteraction: "Constant interaction with new people/clients"
     },
     {
         title: "Physician / Surgeon",
@@ -856,6 +1008,166 @@ export const careers = [
             "Pass USMLE/Medical Board Exams",
             "Complete a surgical residency",
             "Perform life-saving advanced surgeries"
+        ],
+        academicIntensity: "Lifelong intensive learning and PhDs",
+        riskTolerance: "I thrive in unpredictable, high-pressure environments",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Public-facing, performative, or high-stakes leadership"
+    },
+    {
+        title: "Software Architect",
+        domain: "Technology",
+        traits: ["logic", "visionary", "leadership"],
+        interests: "Finding logical patterns and code",
+        subject: "Mathematics & Engineering",
+        workStyle: "Deep exploration and thorough research",
+        strength: "Your logical and analytical mind",
+        techVsNonTech: "Building software or working with hardware",
+        creativityVsLogic: "Defined rules and algorithms",
+        teamVsIndividual: "Leading a team toward a common goal",
+        goal: "Technical innovation and building things",
+        recommendedSkills: ["System Design", "Cloud Architecture", "Distributed Systems", "Leadership"],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team",
+        difficultyLevel: "Very High",
+        growthOutlook: "Excellent",
+        goalsRoadmap: [
+            "Master complex software design patterns",
+            "Design scalable cloud-native architectures",
+            "Lead engineering teams on high-impact projects",
+            "Define the long-term technical vision for products"
+        ]
+    },
+    {
+        title: "Mobile App Developer",
+        domain: "Technology",
+        traits: ["logic", "focus", "creative"],
+        interests: "Finding logical patterns and code",
+        subject: "Mathematics & Engineering",
+        workStyle: "Breaking it into small, logical steps",
+        strength: "Your logical and analytical mind",
+        techVsNonTech: "Building software or working with hardware",
+        creativityVsLogic: "Practicality and efficiency",
+        teamVsIndividual: "Working solo in a quiet \"flow state\"",
+        goal: "Technical innovation and building things",
+        recommendedSkills: ["Swift/Kotlin", "React Native", "Mobile UI", "API Integration"],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Regular collaboration with a small team",
+        difficultyLevel: "Medium",
+        growthOutlook: "High",
+        goalsRoadmap: [
+            "Learn native mobile languages (Swift/Kotlin)",
+            "Master cross-platform tools like Flutter/React Native",
+            "Publish high-quality apps to App/Play Store",
+            "Build offline-first, performance-optimized apps"
+        ]
+    },
+    {
+        title: "Aerospace Engineer",
+        domain: "Engineering",
+        traits: ["logic", "discipline", "precision"],
+        interests: "Flying and technology",
+        subject: "Mathematics & Engineering",
+        workStyle: "Deep exploration and thorough research",
+        strength: "Your logical and analytical mind",
+        techVsNonTech: "Building software or working with hardware",
+        creativityVsLogic: "Defined rules and algorithms",
+        teamVsIndividual: "Regular collaboration with a small team",
+        goal: "Technical innovation and building things",
+        recommendedSkills: ["Aerodynamics", "Propulsion", "Flight Mechanics", "Composite Materials"],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Regular collaboration with a small team",
+        difficultyLevel: "Very High",
+        growthOutlook: "Stable",
+        goalsRoadmap: [
+            "Earn a specialized degree in Aerospace Engineering",
+            "Master flight simulation and CAD tools",
+            "Design high-performance aircraft/spacecraft systems",
+            "Lead cutting-edge aerospace R&D projects"
+        ]
+    },
+    {
+        title: "Robotics Engineer",
+        domain: "Engineering",
+        traits: ["logic", "focus", "creative"],
+        interests: "Finding logical patterns and code",
+        subject: "Mathematics & Engineering",
+        workStyle: "Deep exploration and thorough research",
+        strength: "Your logical and analytical mind",
+        techVsNonTech: "Building software or working with hardware",
+        creativityVsLogic: "Practicality and efficiency",
+        teamVsIndividual: "Regular collaboration with a small team",
+        goal: "Technical innovation and building things",
+        recommendedSkills: ["Robotics Design", "Embedded Systems", "Control Systems", "C++/Python"],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Physically active but indoors (Labs, Studios)",
+        socialInteraction: "Regular collaboration with a small team",
+        difficultyLevel: "High",
+        growthOutlook: "Excellent",
+        goalsRoadmap: [
+            "Master mechanics and electronics fundamentals",
+            "Learn robotic perception and path planning",
+            "Build and program physical robotic prototypes",
+            "Implement AI-driven autonomous robotic systems"
+        ]
+    },
+    {
+        title: "Investment Analyst",
+        domain: "Finance",
+        traits: ["logic", "ambitious", "numerical"],
+        interests: "Investigating data and discovering insights",
+        subject: "Business & Economics",
+        workStyle: "High pressure and client-focused",
+        strength: "Your logical and analytical mind",
+        techVsNonTech: "Accounting, finance, or banking",
+        creativityVsLogic: "Practicality and efficiency",
+        teamVsIndividual: "Collaborating in an active group workshop",
+        goal: "Financial stability and steady growth",
+        recommendedSkills: ["Financial Analysis", "Equity Research", "Modeling", "Reporting"],
+        academicIntensity: "Standard University Degree (3-4 years)",
+        riskTolerance: "Balanced growth with moderate stability",
+        physicalDemand: "Strictly a desk/remote setup",
+        socialInteraction: "Constant interaction with new people/clients",
+        difficultyLevel: "High",
+        growthOutlook: "Stable",
+        goalsRoadmap: [
+            "Earn a finance or economics degree",
+            "Clear CFA Level 1 or relevant certification",
+            "Build robust equity and market models",
+            "Manage diversified investment portfolios"
+        ]
+    },
+    {
+        title: "Public Policy Analyst",
+        domain: "Law",
+        traits: ["logic", "empathy", "theoretical"],
+        interests: "Investigating data and discovering insights",
+        subject: "Psychology & Social Science",
+        workStyle: "Deep exploration and thorough research",
+        strength: "Your ability to understand and help people",
+        techVsNonTech: "Operations, management, or strategy",
+        creativityVsLogic: "Collaborative input and shared ideas",
+        teamVsIndividual: "Regular collaboration with a small team",
+        goal: "Social impact and helping individuals",
+        recommendedSkills: ["Policy Research", "Statistical Analysis", "Legislative Logic", "Writing"],
+        academicIntensity: "In-depth Academic/Professional Masters (5-7 years)",
+        riskTolerance: "Absolute security and a guaranteed paycheck",
+        physicalDemand: "Comfortable office with occasional movement",
+        socialInteraction: "Regular collaboration with a small team",
+        difficultyLevel: "High",
+        growthOutlook: "Stable",
+        goalsRoadmap: [
+            "Expertise in sociology and political science",
+            "Master data-driven policy evaluation",
+            "Author impactful legislative white papers",
+            "Lead major national policy reform initiatives"
         ]
     }
 ];
