@@ -12,6 +12,7 @@ const Analyzer = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { user, checkLimit, registerUsage } = useAuth();
     const navigate = useNavigate();
 
     const handleSelect = (answer) => {
@@ -30,9 +31,13 @@ const Analyzer = () => {
         }
     };
 
-    const { user } = useAuth();
-
     const handleSubmit = async () => {
+        if (!checkLimit('analyses')) {
+            const upgrade = window.confirm('You have reached the limit of analyses for your current plan. Would you like to upgrade to a premium plan for more?');
+            if (upgrade) navigate('/pricing');
+            return;
+        }
+
         setIsSubmitting(true);
 
         // Perform Rule-Based Analysis
@@ -68,6 +73,7 @@ const Analyzer = () => {
                     compatibilityScore: result.compatibilityScore || null
                 };
                 await saveAnalysisForUser(user.uid, analysisToSave);
+                await registerUsage('analyses');
             } else {
                 const shouldLogin = window.confirm('You are not signed in. Sign in to save this analysis to your account?');
                 if (shouldLogin) {

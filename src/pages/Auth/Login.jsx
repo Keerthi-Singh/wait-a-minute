@@ -70,6 +70,8 @@ const Login = () => {
           </div>
         </form>
         <p style={{ marginTop: '2rem', color: '#94a3b8' }}>Don't have an account? <Link to="/auth/register" style={{ color: '#6366f1', fontWeight: 600 }}>Create one</Link></p>
+
+        <p style={{ marginTop: '2rem', color: '#94a3b8' }}>Don't have an account? <Link to="/auth/register" style={{ color: '#6366f1', fontWeight: 600 }}>Create one</Link></p>
       </div>
     </div>
   );

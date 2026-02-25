@@ -40,6 +40,13 @@ body {
     overflow-y: auto;
 }
 
+.admin-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {

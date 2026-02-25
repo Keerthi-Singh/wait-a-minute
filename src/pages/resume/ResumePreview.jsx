@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../../contexts/AuthContext';
 import html2pdf from 'html2pdf.js';
 import TemplateA from '../../components/resume/TemplateA';
 import TemplateB from '../../components/resume/TemplateB';
@@ -10,6 +11,7 @@ import './ResumePreview.css';
 
 const ResumePreview = () => {
     const navigate = useNavigate();
+    const { checkLimit, registerUsage } = useAuth();
     const resumeRef = useRef(null);
     const [resumeData, setResumeData] = useState(null);
     const [selectedTemplate, setSelectedTemplate] = useState('A');
@@ -95,6 +97,12 @@ const ResumePreview = () => {
     }, [resumeData]);
 
     const handleDownload = () => {
+        if (!checkLimit('resumes')) {
+            const upgrade = window.confirm('You have reached the limit of resume downloads for your current plan. Would you like to upgrade to a premium plan for more?');
+            if (upgrade) navigate('/pricing');
+            return;
+        }
+
         if (!resumeRef.current) return;
 
         setIsExporting(true);
@@ -109,7 +117,8 @@ const ResumePreview = () => {
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
-        html2pdf().from(element).set(opt).save().then(() => {
+        html2pdf().from(element).set(opt).save().then(async () => {
+            await registerUsage('resumes');
             setIsExporting(false);
         }).catch(err => {
             console.error('PDF export failed', err);

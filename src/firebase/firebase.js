@@ -71,11 +71,58 @@ export const renameAnalysisForUser = async (uid, analysisId, newName) => {
   await setDoc(docRef, { name: newName }, { merge: true });
 };
 
-// Ensure top-level user document exists (merge so we don't overwrite)
+// Ensure top-level user document exists
 export const ensureUserDocument = async (uid, email) => {
   if (!uid) return;
+  const { getDoc } = await import('firebase/firestore');
   const userRef = doc(db, 'users', uid);
-  await setDoc(userRef, { email: email || null, updatedAt: serverTimestamp(), createdAt: serverTimestamp() }, { merge: true });
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists()) {
+    // New user: set default role as student and initialize subscription
+    await setDoc(userRef, {
+      email: email || null,
+      role: 'student',
+      subscription: {
+        planId: 'free',
+        updatedAt: serverTimestamp()
+      },
+      usage: {
+        resumes: 0,
+        analyses: 0,
+        labs: 0
+      },
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+  } else {
+    // Existing user: just update email if missing and timestamp
+    await setDoc(userRef, {
+      email: email || snap.data().email,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+  }
+};
+
+// Fetch user role
+export const getUserDocument = async (uid) => {
+  if (!uid) return null;
+  const { getDoc } = await import('firebase/firestore');
+  const userRef = doc(db, 'users', uid);
+  const snap = await getDoc(userRef);
+  if (snap.exists()) return snap.data();
+  return null;
+};
+
+// Create a user with a specific role (for signup)
+export const createUserProfile = async (uid, data) => {
+  if (!uid) return;
+  const userRef = doc(db, 'users', uid);
+  await setDoc(userRef, {
+    ...data,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  }, { merge: true });
 };
 
 // Real-time listener for analyses collection for a user
@@ -105,6 +152,27 @@ export const deleteResumeForUser = async (uid, resumeId) => {
   if (!uid) throw new Error('No uid provided');
   const docRef = doc(db, 'users', uid, 'resumes', resumeId);
   await deleteDoc(docRef);
+};
+
+export const updateUsage = async (uid, field, increment = 1) => {
+  if (!uid) return;
+  const { updateDoc, increment: firestoreIncrement } = await import('firebase/firestore');
+  const userRef = doc(db, 'users', uid);
+  await updateDoc(userRef, {
+    [`usage.${field}`]: firestoreIncrement(increment),
+    updatedAt: serverTimestamp()
+  });
+};
+
+export const updateSubscription = async (uid, planId) => {
+  if (!uid) return;
+  const { updateDoc } = await import('firebase/firestore');
+  const userRef = doc(db, 'users', uid);
+  await updateDoc(userRef, {
+    'subscription.planId': planId,
+    'subscription.updatedAt': serverTimestamp(),
+    updatedAt: serverTimestamp()
+  });
 };
 
 export { app, auth, db };

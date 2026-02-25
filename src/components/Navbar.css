@@ -124,6 +124,33 @@
     white-space: nowrap;
 }
 
+.plan-badge {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.plan-badge.free {
+    background: rgba(148, 163, 184, 0.1);
+    color: #94a3b8;
+}
+
+.plan-badge.pro {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.plan-badge.elite {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
 .secondary-btn {
     background: rgba(255, 255, 255, 0.06);
     color: var(--text-muted);

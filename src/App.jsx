@@ -14,34 +14,54 @@ import ReadinessResult from './pages/ReadinessResult'
 import ResumeForm from './pages/resume/ResumeForm'
 import TemplateSelect from './pages/resume/TemplateSelect'
 import ResumePreview from './pages/resume/ResumePreview'
+import LoadingGate from './components/LoadingGate'
 
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import Forgot from './pages/Auth/Forgot'
 import VerifyEmail from './pages/Auth/VerifyEmail'
+import AdminDashboard from './pages/AdminDashboard'
+import Pricing from './pages/Pricing'
 import { useAuth } from './contexts/AuthContext'
-import './index.css'
 
 function AnimatedRoutes() {
     const location = useLocation();
+    const { role } = useAuth();
 
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+                {/* Common Protected Routes */}
                 <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+
+                {/* Student specific or common routes */}
                 <Route path="/analyzer" element={<PrivateRoute><Analyzer /></PrivateRoute>} />
                 <Route path="/result" element={<PrivateRoute><Result /></PrivateRoute>} />
                 <Route path="/intelligence-lab" element={<PrivateRoute><IntelligenceLab /></PrivateRoute>} />
                 <Route path="/intelligence-result" element={<PrivateRoute><IntelligenceResult /></PrivateRoute>} />
                 <Route path="/readiness-check" element={<PrivateRoute><ReadinessCheck /></PrivateRoute>} />
                 <Route path="/readiness-result" element={<PrivateRoute><ReadinessResult /></PrivateRoute>} />
+
+                {/* Resume module */}
+                <Route path="/resume/form" element={<PrivateRoute><ResumeForm /></PrivateRoute>} />
+                <Route path="/resume/templates" element={<PrivateRoute><TemplateSelect /></PrivateRoute>} />
+                <Route path="/resume/preview" element={<PrivateRoute><ResumePreview /></PrivateRoute>} />
+
+                <Route path="/pricing" element={<PrivateRoute><Pricing /></PrivateRoute>} />
+
+                {/* Admin specific routes */}
+                {role === 'admin' && (
+                    <Route path="/admin-dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+                )}
+
+                {/* Auth Routes */}
                 <Route path="/auth/login" element={<Login />} />
                 <Route path="/auth/register" element={<Register />} />
                 <Route path="/auth/forgot" element={<Forgot />} />
                 <Route path="/auth/verify" element={<VerifyEmail />} />
-                <Route path="/resume/form" element={<PrivateRoute><ResumeForm /></PrivateRoute>} />
-                <Route path="/resume/templates" element={<PrivateRoute><TemplateSelect /></PrivateRoute>} />
-                <Route path="/resume/preview" element={<PrivateRoute><ResumePreview /></PrivateRoute>} />
+
+                {/* Fallback */}
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </AnimatePresence>
     );
@@ -50,9 +70,11 @@ function AnimatedRoutes() {
 function App() {
     const { user, loading } = useAuth();
 
-    if (loading) return null;
+    // Show professional loading gate while authenticating or fetching role
+    if (loading) {
+        return <LoadingGate />;
+    }
 
-    // Unauthenticated: show only auth pages (no navbar, no sidebar)
     if (!user) {
         return (
             <Router>
@@ -71,7 +93,6 @@ function App() {
         );
     }
 
-    // Authenticated: show full app with navbar and history sidebar
     return (
         <Router>
             <AuthContent />
@@ -79,11 +100,15 @@ function App() {
     )
 }
 
-// Separate component inside Router so hooks work
 function AuthContent() {
     const location = useLocation();
+    const { user, role } = useAuth();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const showSidebar = !location.pathname.startsWith('/resume');
+
+    // Admins don't need the history sidebar on their dashboard
+    const isAdminPath = location.pathname.startsWith('/admin');
+    const isResumePath = location.pathname.startsWith('/resume');
+    const showSidebar = !isAdminPath && !isResumePath && role !== 'admin';
 
     const toggleSidebar = () => setSidebarOpen(prev => !prev);
     const closeSidebar = () => setSidebarOpen(false);
@@ -98,7 +123,7 @@ function AuthContent() {
                 {showSidebar && (
                     <HistorySidebar isOpen={sidebarOpen} onClose={closeSidebar} />
                 )}
-                <div className="app-main-content">
+                <div className={`${isAdminPath ? 'admin-body' : 'app-main-content'}`}>
                     <AnimatedRoutes />
                 </div>
             </div>

@@ -12,12 +12,18 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await register(email, password);
-      // after registering, send verification and show verify page
+      const { user } = await register(email, password);
+
+      // Explicitly set the custom role during registration
+      await createUserProfile(user.uid, {
+        email,
+        role: 'user', // Default SaaS user role
+        createdAt: new Date().toISOString()
+      });
+
       try {
         await sendEmailVerificationToUser();
       } catch (err) {
-        // ignore send verification errors here; user can resend on verify page
         console.warn('send verification failed', err);
       }
       navigate('/auth/verify');

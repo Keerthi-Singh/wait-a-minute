@@ -135,22 +135,94 @@
     animation: float 12s infinite alternate-reverse;
 }
 
+/* Hero Container */
+.hero-actions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.trial-text {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Features Overview */
+.features-overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 5rem;
+    max-width: 1000px;
+    z-index: 10;
+}
+
+.feature-card {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #f1f5f9;
+}
+
+.feature-card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Pricing Teaser */
+.pricing-teaser {
+    margin-top: 6rem;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 800px;
+    width: 100%;
+    z-index: 10;
+    text-align: center;
+}
+
+.pricing-teaser h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.pricing-teaser p {
+    color: #94a3b8;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
+    .features-overview {
+        grid-template-columns: 1fr;
+        margin-top: 3rem;
+    }
+
     .hero-title {
         font-size: 2.5rem;
     }
 
-    .hero-tagline {
-        font-size: 1rem;
-    }
-
-    .hero-description {
-        font-size: 0.95rem;
-    }
-
-    .hero-actions {
+    .main-actions {
         flex-direction: column;
-        align-items: center;
+        width: 100%;
     }
 
     .cta-button {
