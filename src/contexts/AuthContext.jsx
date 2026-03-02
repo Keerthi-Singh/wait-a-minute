@@ -10,20 +10,15 @@ import {
   logout as firebaseLogout,
   reloadCurrentUser,
   ensureUserDocument,
-  updateSubscription,
-  updateUsage,
   sendPasswordReset,
   sendVerificationEmail
 } from '../firebase/firebase';
-import { PLANS } from '../data/plans';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
-  const [subscription, setSubscription] = useState(null);
-  const [usage, setUsage] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,8 +50,6 @@ export const AuthProvider = ({ children }) => {
           if (snap.exists()) {
             const data = snap.data();
             setRole(data.role || 'student');
-            setSubscription(data.subscription || { planId: 'free' });
-            setUsage(data.usage || { resumes: 0, analyses: 0, labs: 0 });
           } else {
             setRole('student');
           }
@@ -90,23 +83,8 @@ export const AuthProvider = ({ children }) => {
   };
   const resetPassword = (email) => sendPasswordReset(email);
   const sendEmailVerificationToUser = () => sendVerificationEmail();
-  const checkLimit = (type) => {
-    if (!subscription || !usage) return false;
-    const plan = Object.values(PLANS).find(p => p.id === subscription.planId) || PLANS.FREE;
-
-    if (type === 'resumes') return usage.resumes < plan.resumeDownloads;
-    if (type === 'analyses') return usage.analyses < plan.analyses;
-    if (type === 'labs') return usage.labs < plan.labsUsage;
-    return false;
-  };
-
-  const upgradePlan = async (planId) => {
-    await updateSubscription(user.uid, planId);
-  };
-
-  const registerUsage = async (type) => {
-    await updateUsage(user.uid, type, 1);
-  };
+  
+  const checkLimit = () => true;
 
   const refreshUser = async () => {
     const u = await reloadCurrentUser();
@@ -116,10 +94,10 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{
-      user, role, subscription, usage, loading,
+      user, role, loading,
       login, register, loginGoogle, logout, resetPassword,
       sendEmailVerificationToUser, refreshUser,
-      checkLimit, upgradePlan, registerUsage
+      checkLimit
     }}>
       {children}
     </AuthContext.Provider>

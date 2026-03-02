@@ -1,8 +1,7 @@
 .intel-res-page {
     min-height: 100vh;
     padding: 3rem 1rem;
-    background: radial-gradient(circle at top, rgba(99, 102, 241, 0.1), transparent 50%),
-        radial-gradient(circle at bottom, rgba(16, 185, 129, 0.1), transparent 50%);
+    background: var(--bg-sage);
     display: flex;
     justify-content: center;
 }
@@ -21,38 +20,39 @@
 }
 
 .premium-badge {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: var(--bg-cream);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 0;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     display: inline-block;
+    font-family: 'Space Mono', monospace;
 }
 
 .intel-res-header h1 {
     font-size: 4rem;
     margin: 1.5rem 0;
     font-weight: 900;
-    background: linear-gradient(135deg, #f8fafc, #94a3b8);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 .confidence-pill {
-    background: rgba(99, 102, 241, 0.1);
-    color: #6366f1;
+    background: var(--bg-cream);
+    color: var(--text-main);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1.25rem;
-    border-radius: 12px;
+    border-radius: 0;
     font-size: 1.1rem;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid var(--border-color);
+    font-family: 'Space Mono', monospace;
 }
 
 .intel-res-grid {
@@ -62,10 +62,9 @@
 }
 
 .intel-card {
-    background: rgba(12, 18, 34, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
     padding: 2rem;
     margin-bottom: 2rem;
     display: flex;
@@ -75,8 +74,8 @@
 .intel-card h3 {
     margin: 0 0 1.5rem 0;
     font-size: 1.4rem;
-    color: #e2e8f0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.5rem;
 }
 
@@ -95,7 +94,7 @@
 }
 
 .intel-traits-list strong {
-    color: #fff;
+    color: var(--text-main);
     margin-right: 0.5rem;
 }
 
@@ -130,23 +129,31 @@
 }
 
 .val-text {
-    color: #f8fafc;
+    color: var(--text-main);
 }
 
 .val-high {
-    color: #10b981;
+    color: var(--text-main);
+    background: var(--accent-success);
+    padding: 2px 8px;
 }
 
 .val-medium {
-    color: #f59e0b;
+    color: var(--text-main);
+    background: var(--accent-warning);
+    padding: 2px 8px;
 }
 
 .val-low {
-    color: #f43f5e;
+    color: white;
+    background: #f43f5e;
+    padding: 2px 8px;
 }
 
 .val-extreme {
-    color: #f43f5e;
+    color: white;
+    background: #f43f5e;
+    padding: 2px 8px;
 }
 
 .sim-timeline {
@@ -252,10 +259,9 @@
 .action-path-header h2 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #10b981, #3b82f6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 .action-path-header p {

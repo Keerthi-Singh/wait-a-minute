@@ -6,7 +6,7 @@ const LoadingGate = () => {
         <div className="loading-gate">
             <div className="loading-content">
                 <div className="system-orb pulse"></div>
-                <h2 className="loading-title">Wait a <span className="gradient-text">Minute</span></h2>
+                <h2 className="loading-title">Wait a <span style={{ color: 'var(--bg-sage)' }}>Minute</span></h2>
                 <div className="loading-bar-container">
                     <div className="loading-bar-progress"></div>
                 </div>

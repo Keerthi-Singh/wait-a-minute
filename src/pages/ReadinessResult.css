@@ -1,8 +1,7 @@
 .readiness-res-page {
     min-height: 100vh;
     padding: 3rem 1rem;
-    background: radial-gradient(circle at top, rgba(245, 158, 11, 0.1), transparent 50%),
-        radial-gradient(circle at bottom, rgba(16, 185, 129, 0.1), transparent 50%);
+    background: var(--bg-sage);
     display: flex;
     justify-content: center;
 }
@@ -21,26 +20,26 @@
 }
 
 .readiness-badge {
-    background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: var(--bg-cream);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 0;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     display: inline-block;
+    font-family: 'Space Mono', monospace;
 }
 
 .readiness-res-header h1 {
     font-size: 3.5rem;
     margin: 1.5rem 0 1rem;
     font-weight: 900;
-    background: linear-gradient(135deg, #f8fafc, #94a3b8);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 .score-meter {
@@ -48,32 +47,31 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    border-radius: 12px;
+    border-radius: 0;
     font-size: 1.25rem;
     margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    font-family: 'Space Mono', monospace;
 }
 
 .score-meter.high {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: var(--accent-success);
+    color: var(--text-main);
 }
 
 .score-meter.medium {
-    background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: var(--accent-warning);
+    color: var(--text-main);
 }
 
 .score-meter.low {
-    background: rgba(244, 63, 94, 0.1);
-    color: #f43f5e;
-    border: 1px solid rgba(244, 63, 94, 0.3);
+    background: #f43f5e;
+    color: white;
 }
 
 .readiness-insight {
     font-size: 1.2rem;
-    color: #e2e8f0;
+    color: var(--text-main);
     max-width: 600px;
     margin: 0 auto;
     font-weight: 500;
@@ -81,9 +79,10 @@
 
 /* Maturity Card Component */
 .maturity-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(12, 18, 34, 0.9));
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     margin-bottom: 2rem;
+    border-radius: 0;
 }
 
 .maturity-header {
@@ -110,17 +109,18 @@
     flex-shrink: 0;
 }
 
-.maturity-titles h3 {
+.maturity- titoli h3 {
     margin: 0 0 0.5rem 0 !important;
     border: none !important;
     padding: 0 !important;
     font-size: 1.8rem !important;
-    color: #f8fafc !important;
+    color: var(--text-main) !important;
+    font-family: 'Space Mono', monospace;
 }
 
 .maturity-titles p {
     margin: 0;
-    color: #cbd5e1;
+    color: var(--text-muted);
     font-size: 1.1rem;
 }
 
@@ -153,13 +153,14 @@
 }
 
 .role-tag.ready {
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--text-main);
+    background: var(--accent-success);
+    border: 1px solid var(--border-color);
 }
 
 .role-tag.not-ready {
-    color: #f43f5e;
-    border: 1px dashed rgba(244, 63, 94, 0.3);
+    color: var(--text-muted);
+    border: 1px dashed var(--border-color);
     opacity: 0.6;
 }
 
@@ -220,10 +221,9 @@
 }
 
 .readiness-card {
-    background: rgba(12, 18, 34, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
     padding: 2rem;
     display: flex;
     flex-direction: column;

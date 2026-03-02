@@ -30,7 +30,7 @@ const Home = () => {
         </div>
 
         <h1 className="hero-title">
-          Wait a <span className="gradient-text">Minute</span>
+          Wait a Minute
         </h1>
         <p className="hero-tagline">Your AI-powered career companion</p>
         <p className="hero-description">
@@ -58,7 +58,7 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Start Free Analysis
+                  Start Analysis
                 </motion.button>
                 <motion.button
                   className="cta-button cta-outline"
@@ -66,42 +66,37 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Build Free Resume
+                  Build Resume
                 </motion.button>
               </div>
-              <p className="trial-text">1 Free analysis & 1 Free resume included. No credit card required.</p>
+              <p className="trial-text">Access advanced career intelligence tools at your fingertips.</p>
             </div>
           )}
         </div>
       </motion.div>
 
-      {isGuest && (
-        <section className="features-overview">
-          <div className="feature-card glass-card">
-            <div className="feature-icon">🔍</div>
-            <h3>Career Analyzer</h3>
-            <p>Advanced engine to find your perfect job match.</p>
-          </div>
-          <div className="feature-card glass-card">
-            <div className="feature-icon">📄</div>
-            <h3>Resume Builder</h3>
-            <p>Professional ATS-friendly templates designed by experts.</p>
-          </div>
-          <div className="feature-card glass-card">
-            <div className="feature-icon">🧠</div>
-            <h3>Intelligence Lab</h3>
-            <p>Deep personality mapping and life simulations.</p>
-          </div>
-        </section>
-      )}
-
-      {isGuest && (
-        <section className="pricing-teaser">
-          <h2>Ready to go <span className="gradient-text">Pro?</span></h2>
-          <p>Unlock unlimited downloads and deep intelligence scans.</p>
-          <button className="cta-button" onClick={() => navigate('/pricing')}>View Pricing Plans</button>
-        </section>
-      )}
+      <section className="features-overview">
+        <div className="feature-card brutalist-card" onClick={() => navigate('/ai-threat-index')} style={{ cursor: 'pointer' }}>
+          <div className="feature-icon">🛡️</div>
+          <h3>Will AI Take Your Job?</h3>
+          <p>Drop your LinkedIn profile and it will analyze and score the threat of AI taking your job.</p>
+        </div>
+        <div className="feature-card brutalist-card">
+          <div className="feature-icon">🔍</div>
+          <h3>Career Analyzer</h3>
+          <p>Advanced engine to find your perfect job match.</p>
+        </div>
+        <div className="feature-card brutalist-card">
+          <div className="feature-icon">📄</div>
+          <h3>Resume Builder</h3>
+          <p>Professional ATS-friendly templates designed by experts.</p>
+        </div>
+        <div className="feature-card brutalist-card">
+          <div className="feature-icon">🧠</div>
+          <h3>Intelligence Lab</h3>
+          <p>Deep personality mapping and life simulations.</p>
+        </div>
+      </section>
 
       <div className="background-blobs">
         <div className="blob blob-1"></div>

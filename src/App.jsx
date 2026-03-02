@@ -14,6 +14,7 @@ import ReadinessResult from './pages/ReadinessResult'
 import ResumeForm from './pages/resume/ResumeForm'
 import TemplateSelect from './pages/resume/TemplateSelect'
 import ResumePreview from './pages/resume/ResumePreview'
+import AIThreatIndex from './pages/AIThreatIndex'
 import LoadingGate from './components/LoadingGate'
 
 import Login from './pages/Auth/Login'
@@ -21,7 +22,6 @@ import Register from './pages/Auth/Register'
 import Forgot from './pages/Auth/Forgot'
 import VerifyEmail from './pages/Auth/VerifyEmail'
 import AdminDashboard from './pages/AdminDashboard'
-import Pricing from './pages/Pricing'
 import { useAuth } from './contexts/AuthContext'
 
 function AnimatedRoutes() {
@@ -41,13 +41,13 @@ function AnimatedRoutes() {
                 <Route path="/intelligence-result" element={<PrivateRoute><IntelligenceResult /></PrivateRoute>} />
                 <Route path="/readiness-check" element={<PrivateRoute><ReadinessCheck /></PrivateRoute>} />
                 <Route path="/readiness-result" element={<PrivateRoute><ReadinessResult /></PrivateRoute>} />
+                <Route path="/ai-threat-index" element={<PrivateRoute><AIThreatIndex /></PrivateRoute>} />
 
                 {/* Resume module */}
                 <Route path="/resume/form" element={<PrivateRoute><ResumeForm /></PrivateRoute>} />
                 <Route path="/resume/templates" element={<PrivateRoute><TemplateSelect /></PrivateRoute>} />
                 <Route path="/resume/preview" element={<PrivateRoute><ResumePreview /></PrivateRoute>} />
 
-                <Route path="/pricing" element={<PrivateRoute><Pricing /></PrivateRoute>} />
 
                 {/* Admin specific routes */}
                 {role === 'admin' && (

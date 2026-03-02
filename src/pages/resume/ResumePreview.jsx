@@ -11,7 +11,7 @@ import './ResumePreview.css';
 
 const ResumePreview = () => {
     const navigate = useNavigate();
-    const { checkLimit, registerUsage } = useAuth();
+    const { user } = useAuth();
     const resumeRef = useRef(null);
     const [resumeData, setResumeData] = useState(null);
     const [selectedTemplate, setSelectedTemplate] = useState('A');
@@ -97,11 +97,6 @@ const ResumePreview = () => {
     }, [resumeData]);
 
     const handleDownload = () => {
-        if (!checkLimit('resumes')) {
-            const upgrade = window.confirm('You have reached the limit of resume downloads for your current plan. Would you like to upgrade to a premium plan for more?');
-            if (upgrade) navigate('/pricing');
-            return;
-        }
 
         if (!resumeRef.current) return;
 
@@ -118,7 +113,6 @@ const ResumePreview = () => {
         };
 
         html2pdf().from(element).set(opt).save().then(async () => {
-            await registerUsage('resumes');
             setIsExporting(false);
         }).catch(err => {
             console.error('PDF export failed', err);

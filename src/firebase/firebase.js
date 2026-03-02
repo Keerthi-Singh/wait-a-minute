@@ -79,19 +79,10 @@ export const ensureUserDocument = async (uid, email) => {
   const snap = await getDoc(userRef);
 
   if (!snap.exists()) {
-    // New user: set default role as student and initialize subscription
+    // New user: set default role as student
     await setDoc(userRef, {
       email: email || null,
       role: 'student',
-      subscription: {
-        planId: 'free',
-        updatedAt: serverTimestamp()
-      },
-      usage: {
-        resumes: 0,
-        analyses: 0,
-        labs: 0
-      },
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp()
     });
@@ -154,26 +145,6 @@ export const deleteResumeForUser = async (uid, resumeId) => {
   await deleteDoc(docRef);
 };
 
-export const updateUsage = async (uid, field, increment = 1) => {
-  if (!uid) return;
-  const { updateDoc, increment: firestoreIncrement } = await import('firebase/firestore');
-  const userRef = doc(db, 'users', uid);
-  await updateDoc(userRef, {
-    [`usage.${field}`]: firestoreIncrement(increment),
-    updatedAt: serverTimestamp()
-  });
-};
-
-export const updateSubscription = async (uid, planId) => {
-  if (!uid) return;
-  const { updateDoc } = await import('firebase/firestore');
-  const userRef = doc(db, 'users', uid);
-  await updateDoc(userRef, {
-    'subscription.planId': planId,
-    'subscription.updatedAt': serverTimestamp(),
-    updatedAt: serverTimestamp()
-  });
-};
 
 export { app, auth, db };
 

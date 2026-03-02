@@ -8,7 +8,7 @@ import Loader from '../components/Loader';
 import './ReadinessCheck.css';
 
 export default function ReadinessCheck() {
-    const { user, checkLimit, registerUsage } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,11 +35,6 @@ export default function ReadinessCheck() {
     const handleBack = () => setStep(s => s - 1);
 
     const handleSubmit = async () => {
-        if (!checkLimit('labs')) {
-            const upgrade = window.confirm('You have reached the limit for Readiness Check sessions on your current plan. Upgrade to unlock more?');
-            if (upgrade) navigate('/pricing');
-            return;
-        }
         setIsSubmitting(true);
         const compiledAnswers = {
             targetCareerId,
@@ -68,7 +63,6 @@ export default function ReadinessCheck() {
                         result,
                     };
                     await saveAnalysisForUser(user.uid, analysisToSave);
-                    await registerUsage('labs');
                 }
             } catch (err) {
                 console.warn("Could not save to firestore", err);

@@ -29,14 +29,14 @@ const Forgot = () => {
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f8fafc' }}>
-              Wait a <span className="gradient-text">Minute</span>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)' }}>
+              Wait a <span style={{ color: 'var(--bg-sage)' }}>Minute</span>
             </div>
           </Link>
         </div>
 
         <h2 style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Reset Password</h2>
-        <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Enter your email and we'll send you a link to reset your password.</p>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Enter your email and we'll send you a link to reset your password.</p>
 
         {message && <div style={{ color: '#22c55e', marginBottom: '1rem', background: 'rgba(34, 197, 94, 0.1)', padding: '0.8rem', borderRadius: '8px' }}>{message}</div>}
         {error && <div style={{ color: 'crimson', marginBottom: '1rem', background: 'rgba(220, 20, 60, 0.1)', padding: '0.8rem', borderRadius: '8px' }}>{error}</div>}
@@ -56,7 +56,7 @@ const Forgot = () => {
             </button>
           </div>
         </form>
-        <p style={{ marginTop: '2rem', color: '#94a3b8' }}>Remembered your password? <Link to="/auth/login" style={{ color: '#6366f1', fontWeight: 600 }}>Sign in</Link></p>
+        <p style={{ marginTop: '2rem', color: 'var(--text-muted)' }}>Remembered your password? <Link to="/auth/login" style={{ color: 'var(--text-main)', fontWeight: 600 }}>Sign in</Link></p>
       </div>
     </div>
   );

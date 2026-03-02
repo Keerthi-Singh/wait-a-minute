@@ -1,0 +1,271 @@
+.ai-threat-page {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    background: var(--bg-sage);
+}
+
+.threat-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.threat-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 4rem;
+    box-shadow: none;
+}
+
+.threat-header {
+    text-align: left;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+.threat-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-main);
+}
+
+.threat-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.linkedin-input-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.linkedin-input-group input {
+    background: white;
+    color: var(--text-main);
+    /* Ensure visible text */
+}
+
+.linkedin-input-group input:focus {
+    border-color: var(--primary);
+    background: var(--bg-cream);
+}
+
+.scan-btn {
+    background: var(--primary);
+    color: white;
+    border: 1px solid var(--border-color);
+    padding: 1.25rem 3rem;
+    border-radius: 0;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.scan-btn:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.scan-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Scanning Animation */
+.scanning-view {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.pulse-circle {
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: threatStep 1s steps(2) infinite;
+}
+
+@keyframes threatStep {
+    0% {
+        transform: scale(1);
+        background: var(--primary);
+    }
+
+    50% {
+        transform: scale(1.1);
+        background: var(--accent-warning);
+    }
+}
+
+.scan-status {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.1em;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+}
+
+/* Results View Redesign */
+.result-view {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.result-score-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.overall-score-section .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.score-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.big-num {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    line-height: 1;
+}
+
+.max-num {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+}
+
+.role-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+}
+
+.role-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 100%;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--border-color);
+}
+
+.analysis-card {
+    padding: 2.5rem;
+    background: white;
+    border: 1px solid var(--border-color);
+    margin: -0.5px;
+    height: 100%;
+}
+
+.analysis-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.category-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-muted);
+}
+
+.category-score {
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-main);
+}
+
+.category-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.result-actions {
+    margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .role-title {
+        font-size: 1.8rem;
+    }
+
+    .big-num {
+        font-size: 3.5rem;
+    }
+}

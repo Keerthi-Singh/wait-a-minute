@@ -8,7 +8,7 @@ import './IntelligenceLab.css';
 
 // Using a custom wizard component designed for Deep Intelligence
 export default function IntelligenceLab() {
-    const { user, checkLimit, registerUsage } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,11 +41,6 @@ export default function IntelligenceLab() {
     const handleBack = () => setStep(s => s - 1);
 
     const handleSubmit = async () => {
-        if (!checkLimit('labs')) {
-            const upgrade = window.confirm('You have reached the limit for Intelligence Lab sessions on your current plan. Upgrade to unlock more?');
-            if (upgrade) navigate('/pricing');
-            return;
-        }
         setIsSubmitting(true);
         const compiledAnswers = {
             style, focus, domains, otherDomain, lifestyle, effortTolerance, environments, strengths
@@ -65,7 +60,6 @@ export default function IntelligenceLab() {
                     result,
                 };
                 await saveAnalysisForUser(user.uid, analysisToSave);
-                await registerUsage('labs');
             }
         } catch (err) {
             console.warn("Could not save to firestore", err);

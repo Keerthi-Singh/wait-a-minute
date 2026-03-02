@@ -1,31 +1,58 @@
 :root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-dark: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.88);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --glass-border: rgba(255, 255, 255, 0.1);
+    /* Theme Extracted from Image */
+    --primary: #1A1A1A;
+    --primary-hover: #000000;
+    --bg-cream: #F2EFE9;
+    /* Warm Cream background */
+    --bg-sage: #A9D1C1;
+    /* Sage Green accent */
+    --bg-dark: #1A1918;
+    --card-bg: #FFFFFF;
+    --text-main: #1A1918;
+    --text-muted: #4A4A4A;
+    --accent-success: #A9D1C1;
+    /* Sage Green for success */
+    --accent-warning: #F5D88A;
+    /* Soft Yellow from image */
+    --border-color: #1A1A1A;
+    --border-light: #D1CEC7;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.mono-text,
+button,
+.label {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-sage);
+    /* Use Sage Green as the main background like in the image */
     color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
+    line-height: 1.5;
 }
 
 .app-container {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .app-body {
@@ -51,7 +78,7 @@ body {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
     }
 
     to {
@@ -60,59 +87,113 @@ body {
     }
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-}
-
 .fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 0.4s ease-out forwards;
 }
 
-.gradient-text {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.glass-card {
+/* Neo-Brutalist Components */
+.brutalist-card {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: none;
+}
+
+.brutalist-button {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+}
+
+.brutalist-button:hover {
+    background: var(--primary-hover);
+    transform: none;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.brutalist-button.secondary {
+    background: transparent;
+    color: var(--text-main);
+}
+
+.brutalist-button.secondary:hover {
+    background: var(--border-light);
+}
+
+/* Legacy Support & Migration */
+.glass-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 .cta-button {
     background: var(--primary);
     color: white;
-    padding: 1rem 2.5rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
+    padding: 0.875rem 2.5rem;
+    border-radius: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    box-shadow: none;
 }
 
 .cta-button:hover {
     background: var(--primary-hover);
-    transform: translateY(-2px);
+    transform: none;
 }
 
-.cta-button.loading {
+/* Form Elements */
+input,
+textarea,
+select {
+    background-color: white;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 0;
+    width: 100%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--bg-cream);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
     opacity: 0.7;
-    cursor: not-allowed;
-    pointer-events: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.875rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }

@@ -28,6 +28,26 @@ const IconResume = () => (
   </svg>
 );
 
+const IconIntelligence = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
+
+const IconReadiness = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const IconAIThreat = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
 const IconClock = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" />
@@ -133,11 +153,11 @@ const HistorySidebar = ({ isOpen, onClose }) => {
         {/* ── Top: Logo + Close ── */}
         <div className="sidebar-top">
           <Link to="/" className="sidebar-logo" onClick={handleNavClick}>
-            <svg className="sidebar-logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
+            <svg className="sidebar-logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter">
+              <rect x="3" y="3" width="18" height="18" />
+              <path d="M12 8v8M8 12h8" />
             </svg>
-            Wait a <span className="gradient-text">Minute</span>
+            Wait a Minute
           </Link>
           <button className="sidebar-close-btn" onClick={onClose} aria-label="Close">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -163,7 +183,31 @@ const HistorySidebar = ({ isOpen, onClose }) => {
             onClick={handleNavClick}
           >
             <span className="sidebar-nav-icon"><IconAnalyzer /></span>
-            Analyzer
+            Basic Analyzer
+          </Link>
+          <Link
+            to="/intelligence-lab"
+            className={`sidebar-nav-link ${location.pathname.startsWith('/intelligence-') ? 'active' : ''}`}
+            onClick={handleNavClick}
+          >
+            <span className="sidebar-nav-icon"><IconIntelligence /></span>
+            Intelligence Lab
+          </Link>
+          <Link
+            to="/readiness-check"
+            className={`sidebar-nav-link ${location.pathname.startsWith('/readiness-') ? 'active' : ''}`}
+            onClick={handleNavClick}
+          >
+            <span className="sidebar-nav-icon"><IconReadiness /></span>
+            Readiness Check
+          </Link>
+          <Link
+            to="/ai-threat-index"
+            className={`sidebar-nav-link ${location.pathname === '/ai-threat-index' ? 'active' : ''}`}
+            onClick={handleNavClick}
+          >
+            <span className="sidebar-nav-icon"><IconAIThreat /></span>
+            Will AI Take Your Job?
           </Link>
           <Link
             to="/resume/form"

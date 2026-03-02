@@ -37,8 +37,8 @@ const Login = () => {
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f8fafc' }}>
-              Wait a <span className="gradient-text">Minute</span>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)' }}>
+              Wait a <span style={{ color: 'var(--bg-sage)' }}>Minute</span>
             </div>
           </Link>
         </div>
@@ -56,7 +56,7 @@ const Login = () => {
             <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="••••••••" />
           </div>
           <div style={{ marginTop: '1rem', textAlign: 'right' }}>
-            <Link to="/auth/forgot" style={{ fontSize: '0.9rem', color: '#6366f1' }}>Forgot password?</Link>
+            <Link to="/auth/forgot" style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Forgot password?</Link>
           </div>
           <div style={{ marginTop: '2rem' }}>
             <button type="submit" className="cta-button" style={{ width: '100%', justifyContent: 'center' }}>
@@ -69,9 +69,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <p style={{ marginTop: '2rem', color: '#94a3b8' }}>Don't have an account? <Link to="/auth/register" style={{ color: '#6366f1', fontWeight: 600 }}>Create one</Link></p>
-
-        <p style={{ marginTop: '2rem', color: '#94a3b8' }}>Don't have an account? <Link to="/auth/register" style={{ color: '#6366f1', fontWeight: 600 }}>Create one</Link></p>
+        <p style={{ marginTop: '2rem', color: 'var(--text-muted)' }}>Don't have an account? <Link to="/auth/register" style={{ color: 'var(--text-main)', fontWeight: 600 }}>Create one</Link></p>
       </div>
     </div>
   );

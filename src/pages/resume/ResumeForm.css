@@ -10,7 +10,9 @@
     width: 100%;
     max-width: 1000px;
     padding: 2.5rem;
-    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
 }
 
 .form-header {
@@ -37,7 +39,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border-right: 1px solid var(--glass-border);
+    border-right: 1px solid var(--border-color);
     padding-right: 1.5rem;
 }
 
@@ -54,7 +56,7 @@
 }
 
 .sidebar-tab:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-cream);
     color: var(--text-main);
 }
 
@@ -82,11 +84,11 @@
 
 .input-group input,
 .input-group textarea {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
+    background: var(--bg-cream);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
     padding: 0.8rem 1rem;
-    color: white;
+    color: var(--text-main);
     width: 100%;
     transition: border-color 0.3s ease;
 }
@@ -104,10 +106,10 @@
 }
 
 .array-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
+    background: var(--bg-cream);
+    border: 1px solid var(--border-color);
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 0;
     margin-bottom: 1.5rem;
     position: relative;
 }
@@ -124,15 +126,17 @@
 }
 
 .add-btn {
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px dashed var(--primary);
-    color: var(--primary);
+    background: var(--bg-cream);
+    border: 1px dashed var(--border-color);
+    color: var(--text-main);
     width: 100%;
     padding: 1rem;
-    border-radius: 12px;
+    border-radius: 0;
     cursor: pointer;
     font-weight: 600;
     margin-bottom: 2rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 .form-actions {
@@ -141,20 +145,21 @@
     gap: 1rem;
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--glass-border);
+    border-top: 1px solid var(--border-color);
 }
 
 .next-btn,
 .submit-btn {
     background: var(--primary);
-    color: white;
-    border: none;
+    color: var(--bg-cream);
+    border: 1px solid var(--border-color);
     padding: 0.8rem 2.5rem;
-    border-radius: 12px;
+    border-radius: 0;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 .next-btn:hover,
@@ -166,11 +171,13 @@
 
 .back-btn {
     background: transparent;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 0.8rem 2rem;
-    border-radius: 10px;
+    border-radius: 0;
     cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
@@ -203,16 +210,15 @@
 }
 
 .enhance-btn {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    border: none;
-    color: white;
+    background: var(--bg-sage);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     padding: 0.3rem 0.8rem;
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
 }
 
 .enhance-btn:hover:not(:disabled) {
