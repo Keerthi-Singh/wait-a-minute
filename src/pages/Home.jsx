@@ -81,17 +81,17 @@ const Home = () => {
           <h3>Will AI Take Your Job?</h3>
           <p>Drop your LinkedIn profile and it will analyze and score the threat of AI taking your job.</p>
         </div>
-        <div className="feature-card brutalist-card">
+        <div className="feature-card brutalist-card" onClick={() => navigate('/analyzer')} style={{ cursor: 'pointer' }}>
           <div className="feature-icon">🔍</div>
           <h3>Career Analyzer</h3>
           <p>Advanced engine to find your perfect job match.</p>
         </div>
-        <div className="feature-card brutalist-card">
+        <div className="feature-card brutalist-card" onClick={() => navigate('/resume/form')} style={{ cursor: 'pointer' }}>
           <div className="feature-icon">📄</div>
           <h3>Resume Builder</h3>
           <p>Professional ATS-friendly templates designed by experts.</p>
         </div>
-        <div className="feature-card brutalist-card">
+        <div className="feature-card brutalist-card" onClick={() => navigate('/intelligence-lab')} style={{ cursor: 'pointer' }}>
           <div className="feature-icon">🧠</div>
           <h3>Intelligence Lab</h3>
           <p>Deep personality mapping and life simulations.</p>

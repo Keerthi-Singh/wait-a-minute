@@ -1,7 +1,7 @@
 // Firebase initialization and helpers
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp, increment } from 'firebase/firestore';
 import { getDocs, query, orderBy, deleteDoc } from 'firebase/firestore';
 import { sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth';
 import { onSnapshot } from 'firebase/firestore';
@@ -32,6 +32,16 @@ export const getCurrentUser = () => {
   });
 };
 
+// Helper to increment a stat counter in stats/counters document
+const incrementStat = async (field, amount = 1) => {
+  try {
+    const statsRef = doc(db, 'stats', 'counters');
+    await setDoc(statsRef, { [field]: increment(amount), lastUpdated: serverTimestamp() }, { merge: true });
+  } catch (e) {
+    console.warn('Could not update stats counter:', e.message);
+  }
+};
+
 // Helper to save a resume under users/{uid}/resumes
 export const saveResumeForUser = async (uid, resume, meta = {}) => {
   if (!uid) throw new Error('No uid provided');
@@ -42,6 +52,7 @@ export const saveResumeForUser = async (uid, resume, meta = {}) => {
     createdAt: serverTimestamp()
   };
   const docRef = await addDoc(colRef, payload);
+  await incrementStat('totalResumes');
   return docRef.id;
 };
 
@@ -54,6 +65,15 @@ export const saveAnalysisForUser = async (uid, analysis) => {
     createdAt: serverTimestamp()
   };
   const docRef = await addDoc(colRef, payload);
+  // Increment global stats counters
+  await incrementStat('totalAnalyses');
+  if (analysis.type === 'intelligence_lab') {
+    await incrementStat('totalIntelligenceScans');
+  } else if (analysis.type === 'readiness_check') {
+    await incrementStat('totalReadinessChecks');
+  } else {
+    await incrementStat('totalCareerAnalyses');
+  }
   return docRef.id;
 };
 
@@ -62,6 +82,7 @@ export const deleteAnalysisForUser = async (uid, analysisId) => {
   if (!uid || !analysisId) throw new Error('Missing uid or analysisId');
   const docRef = doc(db, 'users', uid, 'analyses', analysisId);
   await deleteDoc(docRef);
+  await incrementStat('totalAnalyses', -1);
 };
 
 // Rename an analysis
@@ -143,10 +164,11 @@ export const deleteResumeForUser = async (uid, resumeId) => {
   if (!uid) throw new Error('No uid provided');
   const docRef = doc(db, 'users', uid, 'resumes', resumeId);
   await deleteDoc(docRef);
+  await incrementStat('totalResumes', -1);
 };
 
 
-export { app, auth, db };
+export { app, auth, db, incrementStat };
 
 // Authentication helpers
 export const loginWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);

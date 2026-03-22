@@ -15,13 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      // If email is not verified, send user to verification page
-      const current = auth.currentUser;
-      if (current && current.email && current.emailVerified === false) {
-        navigate('/auth/verify');
-      } else {
-        navigate('/');
-      }
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Login failed');
     }

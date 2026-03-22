@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
-  const { register, sendEmailVerificationToUser } = useAuth();
+  const { register } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -12,21 +12,8 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const { user } = await register(email, password);
-
-      // Explicitly set the custom role during registration
-      await createUserProfile(user.uid, {
-        email,
-        role: 'user', // Default SaaS user role
-        createdAt: new Date().toISOString()
-      });
-
-      try {
-        await sendEmailVerificationToUser();
-      } catch (err) {
-        console.warn('send verification failed', err);
-      }
-      navigate('/auth/verify');
+      await register(email, password);
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Registration failed');
     }

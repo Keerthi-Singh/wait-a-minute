@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { calculateAIThreat } from '../utils/aiThreatLogic';
+import { db, incrementStat } from '../firebase/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import './AIThreatIndex.css';
 
 const AIThreatIndex = () => {
@@ -44,6 +46,18 @@ const AIThreatIndex = () => {
         try {
             const assessment = await calculateAIThreat(linkedinUrl);
 
+            // Log to Firebase for Admin Analytics
+            try {
+                await addDoc(collection(db, 'aiThreatUsage'), {
+                    url: linkedinUrl,
+                    createdAt: serverTimestamp(),
+                    score: assessment.overallScore || 0
+                });
+                await incrementStat('totalThreatScans');
+            } catch (err) {
+                console.warn('Failed to log threat scan metric', err);
+            }
+
             // Wait for animation to finish (at least 5 seconds)
             setTimeout(() => {
                 setResult(assessment);
@@ -51,8 +65,15 @@ const AIThreatIndex = () => {
             }, 5000);
 
         } catch (err) {
-            console.error(err);
-            setError("Failed to analyze. Please check your connection.");
+            console.error('Threat scan error:', err);
+            const msg = err.message || '';
+            if (msg.includes('API key') || msg.includes('leaked') || msg.includes('PERMISSION_DENIED') || msg.includes('invalid_api_key')) {
+                setError("AI service API key is invalid or expired. Please contact the admin to update the API key.");
+            } else if (msg.includes('quota') || msg.includes('429') || msg.includes('rate_limit')) {
+                setError("AI service rate limit reached. Please try again in a few minutes.");
+            } else {
+                setError("Failed to analyze profile. " + (msg || "Please check your connection and try again."));
+            }
             setIsScanning(false);
         }
     };
@@ -139,6 +160,15 @@ const AIThreatIndex = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="result-view"
                             >
+                                {/* Profile Info */}
+                                <div className="profile-info-bar">
+                                    <div className="profile-info-name">{result.profileName}</div>
+                                    <div className="profile-info-meta">
+                                        {result.profileRole}{result.profileIndustry ? ` · ${result.profileIndustry}` : ''}
+                                    </div>
+                                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="profile-info-link">View LinkedIn Profile →</a>
+                                </div>
+
                                 <div className="result-score-header">
                                     <div className="overall-score-section">
                                         <span className="label">AI THREAT LEVEL</span>

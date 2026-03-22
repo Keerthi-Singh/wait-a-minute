@@ -37,8 +37,14 @@ export const calculateAIThreat = async (linkedinUrl) => {
     if (score < 0) score = 0;
     if (score > 10) score = 10;
 
+    // Extract profile name hint from URL as fallback
+    const nameHint = parseLinkedInHint(linkedinUrl);
+
     return {
         ...assessment,
+        profileName: assessment.profileName || nameHint || 'Unknown Profile',
+        profileRole: assessment.profileRole || 'Professional',
+        profileIndustry: assessment.profileIndustry || '',
         overallScore: score,
         level: score > 7.5 ? 'Critical' : score > 5 ? 'High' : score > 2.5 ? 'Moderate' : 'Low',
         color: score > 7.5 ? '#ef4444' : score > 5 ? '#f59e0b' : score > 2.5 ? '#3b82f6' : '#10b981'

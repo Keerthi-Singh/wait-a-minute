@@ -136,6 +136,45 @@
     text-transform: uppercase;
 }
 
+/* Profile Info Bar */
+.profile-info-bar {
+    background: var(--bg-cream);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.profile-info-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.profile-info-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+}
+
+.profile-info-link {
+    font-size: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+}
+
+.profile-info-link:hover {
+    text-decoration: underline;
+}
+
 /* Results View Redesign */
 .result-view {
     display: flex;
