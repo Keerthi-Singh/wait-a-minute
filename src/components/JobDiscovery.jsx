@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getJobInsights } from '../utils/aiService';
+import { IconSparkles } from './Icons';
 import './JobDiscovery.css';
 
 const JobDiscovery = ({ careerTitle }) => {
@@ -48,7 +49,7 @@ const JobDiscovery = ({ careerTitle }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
         >
-            <h2 className="section-title">✨ AI Job Market Insights</h2>
+            <h2 className="section-title"><IconSparkles size={20} style={{ marginRight: 8, verticalAlign: 'middle' }} /> AI Job Market Insights</h2>
 
             <div className="discovery-grid">
                 <div className="market-overview glass-card">

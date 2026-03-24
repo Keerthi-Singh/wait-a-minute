@@ -100,6 +100,12 @@ const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
                             Will AI Take Your Job?
                         </Link>
                         <Link
+                            to="/skill-gap-heatmap"
+                            className={`nav-link ${location.pathname === '/skill-gap-heatmap' ? 'active' : ''}`}
+                        >
+                            Skill Gap Map
+                        </Link>
+                        <Link
                             to="/resume/form"
                             className={`nav-link resume-btn ${location.pathname.startsWith('/resume') ? 'active' : ''}`}
                         >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { db } from '../firebase/firebase';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { IconUsers, IconCpu, IconGlobe, IconFileText, IconZap, IconMicroscope, IconMap, IconTarget, IconAward, IconBarChart, IconTrendingUp } from '../components/Icons';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('analytics');
@@ -22,6 +23,7 @@ const AdminDashboard = () => {
         totalIntelligenceScans: 0,
         totalReadinessChecks: 0,
         totalCareerAnalyses: 0,
+        heatmapViews: 0,
         topCareer: 'Calculating...',
         commonSkillGap: 'Calculating...',
         systemHealth: 'Stable',
@@ -190,6 +192,7 @@ const AdminDashboard = () => {
                         totalIntelligenceScans,
                         totalReadinessChecks,
                         totalCareerAnalyses,
+                        heatmapViews: statsFromCounters.heatmapViews || 0,
                         topCareer,
                         matchCount,
                         commonSkillGap,
@@ -509,25 +512,25 @@ const AdminDashboard = () => {
                 <div className="analytics-section-label">Platform Overview</div>
                 <div className="analytics-grid">
                     <div className="analytic-card clickable" onClick={() => setActiveTab('users')} title="Click to view all users">
-                        <div className="card-icon icon-indigo">👥</div>
+                        <div className="card-icon icon-indigo"><IconUsers size={22} /></div>
                         <h4>Registered Users</h4>
                         <span className="count">{analytics.totalUsers}</span>
                         <div className="trend-up">Active Database</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-green">🧠</div>
+                        <div className="card-icon icon-green"><IconCpu size={22} /></div>
                         <h4>AI Matches Conducted</h4>
                         <span className="count">{analytics.totalAnalyses}</span>
                         <div className="trend-up">Total Analyses</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-amber">🌐</div>
+                        <div className="card-icon icon-amber"><IconGlobe size={22} /></div>
                         <h4>AI Threat Checks</h4>
                         <span className="count">{analytics.totalThreatScans}</span>
                         <div className="trend-up">LinkedIn Scanner</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-purple">📄</div>
+                        <div className="card-icon icon-purple"><IconFileText size={22} /></div>
                         <h4>Resumes Generated</h4>
                         <span className="count">{analytics.totalResumes}</span>
                         <div className="trend-up">Builder Usage</div>
@@ -538,28 +541,34 @@ const AdminDashboard = () => {
                 <div className="analytics-section-label">Module Breakdown</div>
                 <div className="analytics-grid">
                     <div className="analytic-card">
-                        <div className="card-icon icon-green">⚡</div>
+                        <div className="card-icon icon-green"><IconZap size={22} /></div>
                         <h4>Career Analyzer</h4>
                         <span className="count">{analytics.totalCareerAnalyses}</span>
                         <div className="trend-up">Quick Career Matches</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-indigo">🔬</div>
+                        <div className="card-icon icon-indigo"><IconMicroscope size={22} /></div>
                         <h4>Intelligence Lab</h4>
                         <span className="count">{analytics.totalIntelligenceScans}</span>
                         <div className="trend-up">Deep Analysis Scans</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-amber">🗺️</div>
+                        <div className="card-icon icon-amber"><IconMap size={22} /></div>
                         <h4>Readiness Checks</h4>
                         <span className="count">{analytics.totalReadinessChecks}</span>
                         <div className="trend-up">Journey Mapping</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-rose">🎯</div>
+                        <div className="card-icon icon-rose"><IconTarget size={22} /></div>
                         <h4>Avg Threat Score</h4>
                         <span className="count">{analytics.avgThreatScore > 0 ? `${analytics.avgThreatScore}/10` : 'N/A'}</span>
                         <div className="trend-up">Risk Metric Average</div>
+                    </div>
+                    <div className="analytic-card">
+                        <div className="card-icon icon-green"><IconMap size={22} /></div>
+                        <h4>Heatmap Views</h4>
+                        <span className="count">{analytics.heatmapViews}</span>
+                        <div className="trend-up">Skill Gap Explorer</div>
                     </div>
                 </div>
 
@@ -567,19 +576,19 @@ const AdminDashboard = () => {
                 <div className="analytics-section-label">Intelligence Insights</div>
                 <div className="analytics-grid three-col">
                     <div className="analytic-card">
-                        <div className="card-icon icon-green">🏆</div>
+                        <div className="card-icon icon-green"><IconAward size={22} /></div>
                         <h4>Most Popular Career</h4>
                         <span className="count count-sm">{analytics.topCareer}</span>
                         <div className="trend-up">{analytics.matchCount > 0 ? `Matched ${analytics.matchCount} times` : 'Awaiting data'}</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-amber">📊</div>
+                        <div className="card-icon icon-amber"><IconBarChart size={22} /></div>
                         <h4>Top Skill Gap</h4>
                         <span className="count count-sm">{analytics.commonSkillGap}</span>
                         <div className="trend-up">Most common missing skill</div>
                     </div>
                     <div className="analytic-card">
-                        <div className="card-icon icon-indigo">📈</div>
+                        <div className="card-icon icon-indigo"><IconTrendingUp size={22} /></div>
                         <h4>Engagement Ratio</h4>
                         <span className="count count-sm">{analytics.totalUsers > 0 ? `${((analytics.totalAnalyses / analytics.totalUsers) * 100).toFixed(0)}%` : 'N/A'}</span>
                         <div className="trend-up">Analyses per user</div>
@@ -594,7 +603,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="recommendation-card">
                         <div className="rec-header">
-                            <div className="rec-icon">🌐</div>
+                            <div className="rec-icon"><IconGlobe size={20} /></div>
                             <h4>LinkedIn AI Threat Metric</h4>
                         </div>
                         <div className="rec-body">
@@ -606,7 +615,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="recommendation-card">
                         <div className="rec-header">
-                            <div className="rec-icon">🧠</div>
+                            <div className="rec-icon"><IconCpu size={20} /></div>
                             <h4>Career Analyzer Activity</h4>
                         </div>
                         <div className="rec-body">
@@ -615,7 +624,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="recommendation-card">
                         <div className="rec-header">
-                            <div className="rec-icon">📄</div>
+                            <div className="rec-icon"><IconFileText size={20} /></div>
                             <h4>Resume Builder Activity</h4>
                         </div>
                         <div className="rec-body">
@@ -624,7 +633,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="recommendation-card">
                         <div className="rec-header">
-                            <div className="rec-icon">📊</div>
+                            <div className="rec-icon"><IconBarChart size={20} /></div>
                             <h4>Platform Health Summary</h4>
                         </div>
                         <div className="rec-body">

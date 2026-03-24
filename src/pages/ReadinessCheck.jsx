@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { calculateReadiness } from '../utils/readinessLogic';
 import { intelligenceCareers } from '../data/intelligenceCareers';
 import Loader from '../components/Loader';
+import { IconChevronRight } from '../components/Icons';
 import './ReadinessCheck.css';
 
 export default function ReadinessCheck() {
@@ -84,9 +85,9 @@ export default function ReadinessCheck() {
                         <h1>Career Journey Mapper</h1>
                         <p className="subtitle">Evaluate your exact career stage and readiness.</p>
                         <div className="intro-card">
-                            <p>👉 Found a career you love? Let's see exactly where you stand in that journey today.</p>
-                            <p>👉 We map your current phase (Student, Intern, Switcher), identify missing experience, and analyze skill gaps.</p>
-                            <p>👉 Get a brutally honest Role-Readiness assessment before committing years of your life.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> Found a career you love? Let's see exactly where you stand in that journey today.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> We map your current phase (Student, Intern, Switcher), identify missing experience, and analyze skill gaps.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> Get a brutally honest Role-Readiness assessment before committing years of your life.</p>
                         </div>
                         <button className="cta-button primary-readiness" onClick={handleNext}>Map My Journey</button>
                     </motion.div>

@@ -393,7 +393,8 @@
 }
 
 .cert-list li::before {
-    content: '🏆';
+    content: '\2713';
+    font-weight: 700;
 }
 
 .job-buttons {

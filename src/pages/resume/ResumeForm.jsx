@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { enhanceResumeBullet } from '../../utils/aiService';
+import { IconSparkles } from '../../components/Icons';
 import './ResumeForm.css';
 import { saveResumeForUser } from '../../firebase/firebase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -202,7 +203,8 @@ const ResumeForm = () => {
                                             onClick={() => handleEnhance(index)}
                                             disabled={enhancing === index}
                                         >
-                                            {enhancing === index ? '✨ Enhancing...' : '✨ AI Optimize'}
+                                            <IconSparkles size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} />
+                                            {enhancing === index ? 'Enhancing...' : 'AI Optimize'}
                                         </button>
                                     </label>
                                     <textarea value={exp.description} onChange={(e) => handleArrayChange('experience', index, 'description', e.target.value)}></textarea>

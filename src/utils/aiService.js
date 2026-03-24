@@ -1,7 +1,17 @@
 import Groq from "groq-sdk";
 
 const API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const groq = new Groq({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+
+// Lazy-init: only create the Groq client when actually needed, so a missing key
+// doesn't crash the entire app on startup.
+let _groq = null;
+const getGroq = () => {
+    if (!_groq) {
+        if (!API_KEY) throw new Error("Groq API Key is not configured. Please set VITE_GROQ_API_KEY in your .env file.");
+        _groq = new Groq({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+    }
+    return _groq;
+};
 
 /**
  * Extracts JSON from a string that might contain markdown or other text.
@@ -24,7 +34,7 @@ const extractJSON = (text) => {
  * Helper to call Groq chat completion
  */
 const callGroq = async (prompt, jsonMode = false) => {
-    if (!API_KEY) throw new Error("Groq API Key is not configured. Please set VITE_GROQ_API_KEY in your .env file.");
+    const groq = getGroq();
 
     const options = {
         model: "llama-3.3-70b-versatile",

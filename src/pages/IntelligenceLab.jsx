@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { analyzeDeepIntelligence } from '../utils/intelligenceLogic';
 import Loader from '../components/Loader';
+import { IconChevronRight } from '../components/Icons';
 import './IntelligenceLab.css';
 
 // Using a custom wizard component designed for Deep Intelligence
@@ -80,9 +81,9 @@ export default function IntelligenceLab() {
                         <h1>Career Intelligence Lab</h1>
                         <p className="subtitle">Advanced analysis for serious, life-altering career decisions.</p>
                         <div className="intro-card">
-                            <p>👉 This module analyzes your personality, effort tolerance, stability needs, risk appetite, and lifestyle expectations.</p>
-                            <p>👉 It maps across diverse fields including Government, Healthcare, Arts, Business, and Tech.</p>
-                            <p>👉 It simulates the next 5 years of your life to generate a Reality Check.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> This module analyzes your personality, effort tolerance, stability needs, risk appetite, and lifestyle expectations.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> It maps across diverse fields including Government, Healthcare, Arts, Business, and Tech.</p>
+                            <p><IconChevronRight size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> It simulates the next 5 years of your life to generate a Reality Check.</p>
                         </div>
                         <button className="cta-button primary-intel" onClick={handleNext}>Start Deep Analysis</button>
                     </motion.div>

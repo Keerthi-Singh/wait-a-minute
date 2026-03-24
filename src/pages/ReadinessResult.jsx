@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { generateActionPath } from '../utils/actionPathLogic';
+import { IconCheck, IconX } from '../components/Icons';
 import './ReadinessResult.css';
 
 export default function ReadinessResult() {
@@ -55,7 +56,7 @@ export default function ReadinessResult() {
                             <div className="role-tags">
                                 {maturity.roleReadiness.map((rr, i) => (
                                     <span key={i} className={`role-tag ${rr.ready ? 'ready' : 'not-ready'}`}>
-                                        {rr.ready ? '✔' : '✖'} {rr.role}
+                                        {rr.ready ? <IconCheck size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} /> : <IconX size={14} style={{ verticalAlign: 'middle', marginRight: 4 }} />} {rr.role}
                                     </span>
                                 ))}
                             </div>

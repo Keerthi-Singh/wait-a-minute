@@ -15,6 +15,7 @@ import ResumeForm from './pages/resume/ResumeForm'
 import TemplateSelect from './pages/resume/TemplateSelect'
 import ResumePreview from './pages/resume/ResumePreview'
 import AIThreatIndex from './pages/AIThreatIndex'
+import SkillGapHeatmap from './pages/SkillGapHeatmap'
 import LoadingGate from './components/LoadingGate'
 
 import Login from './pages/Auth/Login'
@@ -42,6 +43,7 @@ function AnimatedRoutes() {
                 <Route path="/readiness-check" element={<PrivateRoute><ReadinessCheck /></PrivateRoute>} />
                 <Route path="/readiness-result" element={<PrivateRoute><ReadinessResult /></PrivateRoute>} />
                 <Route path="/ai-threat-index" element={<PrivateRoute><AIThreatIndex /></PrivateRoute>} />
+                <Route path="/skill-gap-heatmap" element={<PrivateRoute><SkillGapHeatmap /></PrivateRoute>} />
 
                 {/* Resume module */}
                 <Route path="/resume/form" element={<PrivateRoute><ResumeForm /></PrivateRoute>} />

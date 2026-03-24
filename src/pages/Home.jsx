@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './Home.css';
 import { useAuth } from '../contexts/AuthContext';
+import { IconSparkles, IconMapPin, IconShield, IconSearch, IconFileText, IconCpu } from '../components/Icons';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -76,23 +77,29 @@ const Home = () => {
       </motion.div>
 
       <section className="features-overview">
+        <div className="feature-card brutalist-card featured-card" onClick={() => navigate('/skill-gap-heatmap')} style={{ cursor: 'pointer' }}>
+          <div className="featured-badge-tag"><IconSparkles size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} /> New Feature</div>
+          <div className="feature-icon"><IconMapPin size={28} /></div>
+          <h3>India Skill Gap Heatmap</h3>
+          <p>Explore real-time skill shortages across every Indian state and discover what to learn based on where you live. Powered by NSDC and NITI Aayog data.</p>
+        </div>
         <div className="feature-card brutalist-card" onClick={() => navigate('/ai-threat-index')} style={{ cursor: 'pointer' }}>
-          <div className="feature-icon">🛡️</div>
+          <div className="feature-icon"><IconShield size={28} /></div>
           <h3>Will AI Take Your Job?</h3>
           <p>Drop your LinkedIn profile and it will analyze and score the threat of AI taking your job.</p>
         </div>
         <div className="feature-card brutalist-card" onClick={() => navigate('/analyzer')} style={{ cursor: 'pointer' }}>
-          <div className="feature-icon">🔍</div>
+          <div className="feature-icon"><IconSearch size={28} /></div>
           <h3>Career Analyzer</h3>
           <p>Advanced engine to find your perfect job match.</p>
         </div>
         <div className="feature-card brutalist-card" onClick={() => navigate('/resume/form')} style={{ cursor: 'pointer' }}>
-          <div className="feature-icon">📄</div>
+          <div className="feature-icon"><IconFileText size={28} /></div>
           <h3>Resume Builder</h3>
           <p>Professional ATS-friendly templates designed by experts.</p>
         </div>
         <div className="feature-card brutalist-card" onClick={() => navigate('/intelligence-lab')} style={{ cursor: 'pointer' }}>
-          <div className="feature-icon">🧠</div>
+          <div className="feature-icon"><IconCpu size={28} /></div>
           <h3>Intelligence Lab</h3>
           <p>Deep personality mapping and life simulations.</p>
         </div>

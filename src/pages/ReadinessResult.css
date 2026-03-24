@@ -337,8 +337,10 @@
 }
 
 .r-action-list li::before {
-    content: '👉';
-    margin-top: 2px;
+    content: '\203A';
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-top: 0px;
 }
 
 .r-desc {
