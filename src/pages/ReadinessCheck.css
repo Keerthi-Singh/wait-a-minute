@@ -81,8 +81,8 @@
 }
 
 .primary-readiness:disabled {
-    background: #334155;
-    color: #94a3b8;
+    background: var(--border-light);
+    color: var(--text-muted);
     cursor: not-allowed;
     box-shadow: none;
     transform: none;

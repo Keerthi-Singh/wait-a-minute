@@ -59,7 +59,7 @@
     border: 1px solid var(--border-color);
     border-radius: 0;
     font-size: 0.75rem;
-    color: white;
+    color: var(--text-main);
     font-weight: 700;
     font-family: 'Space Mono', monospace;
     text-transform: uppercase;
@@ -88,7 +88,7 @@
 
 .tier .amount {
     font-weight: 700;
-    color: var(--accent-success);
+    color: var(--text-main);
     font-family: 'Space Mono', monospace;
 }
 

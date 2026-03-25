@@ -91,7 +91,7 @@
     gap: 1.5rem;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .maturity-level-badge {
@@ -132,7 +132,7 @@
 
 .m-col h4 {
     margin: 0 0 1rem 0;
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -146,10 +146,12 @@
 
 .role-tag {
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 0;
     font-size: 1.05rem;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-cream);
+    display: inline-flex;
+    align-items: center;
 }
 
 .role-tag.ready {
@@ -179,12 +181,12 @@
     top: 5px;
     bottom: 5px;
     width: 2px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-light);
 }
 
 .ladder-step {
     position: relative;
-    color: #64748b;
+    color: var(--text-muted);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -196,11 +198,12 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #334155;
+    background: var(--border-light);
 }
 
 .ladder-step.achieved {
-    color: #f8fafc;
+    color: var(--text-main);
+    font-weight: 700;
 }
 
 .ladder-step.achieved .l-dot {
@@ -232,8 +235,8 @@
 .readiness-card h3 {
     margin: 0 0 1.5rem 0;
     font-size: 1.4rem;
-    color: #e2e8f0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-light);
     padding-bottom: 0.5rem;
 }
 
@@ -251,26 +254,26 @@
 
 .r-score-group label {
     font-weight: 500;
-    color: #cbd5e1;
+    color: var(--text-muted);
     font-size: 1rem;
 }
 
 .r-bar-bg {
     width: 100%;
     height: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 6px;
+    background: var(--border-light);
+    border-radius: 0;
     overflow: hidden;
 }
 
 .r-bar-fill {
     height: 100%;
-    border-radius: 6px;
+    border-radius: 0;
 }
 
 .r-bar-val {
     font-weight: 600;
-    color: #f8fafc;
+    color: var(--text-main);
     text-align: right;
 }
 
@@ -296,7 +299,8 @@
     align-items: center;
     font-size: 1.1rem;
     padding: 1rem 0;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    border-bottom: 1px dashed var(--border-light);
+    color: var(--text-muted);
 }
 
 .r-metric-row:last-child {
@@ -305,15 +309,18 @@
 }
 
 .gap-card p {
-    color: #cbd5e1;
+    color: var(--text-muted);
     margin-bottom: 1rem;
     font-size: 1.05rem;
 }
 
 .skill-tag.danger {
-    background: rgba(244, 63, 94, 0.1);
-    color: #f43f5e;
-    border: 1px solid rgba(244, 63, 94, 0.3);
+    background: #fde8e8;
+    color: #c0392b;
+    border: 1px solid #c0392b;
+    border-radius: 0;
+    font-family: 'Space Mono', monospace;
+    font-weight: 600;
 }
 
 .r-action-list {
@@ -326,14 +333,15 @@
 }
 
 .r-action-list li {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-cream);
     padding: 1rem;
-    border-radius: 8px;
-    color: #e2e8f0;
+    border-radius: 0;
+    color: var(--text-main);
     font-size: 1.05rem;
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
+    border: 1px solid var(--border-light);
 }
 
 .r-action-list li::before {
@@ -344,7 +352,7 @@
 }
 
 .r-desc {
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-bottom: 1rem;
 }
 
@@ -359,7 +367,7 @@
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-    color: #cbd5e1;
+    color: var(--text-muted);
 }
 
 .backup-dot {
@@ -381,5 +389,6 @@
 
     .r-bar-val {
         text-align: left;
+        color: var(--text-main);
     }
 }

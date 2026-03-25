@@ -74,7 +74,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 5px;
     margin-bottom: 10px;
-    color: #94a3b8;
+    color: #d1d5db;
 }
 
 .template-b .main-content {
@@ -95,7 +95,7 @@
 .template-b .content-entry-header {
     display: flex;
     justify-content: space-between;
-    color: #64748b;
+    color: #4A4A4A;
     font-size: 0.9rem;
 }
 

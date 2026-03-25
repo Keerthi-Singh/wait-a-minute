@@ -184,7 +184,7 @@ export default function ReadinessResult() {
                         <div className="action-path-col">
                             <div className="readiness-card certs-card" style={{ height: '100%' }}>
                                 <h3>High-Impact Certifications</h3>
-                                <p style={{ color: '#94a3b8', marginBottom: '1rem' }}>Completing these jumps your maturity level rapidly:</p>
+                                <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Completing these jumps your maturity level rapidly:</p>
                                 <ul className="r-action-list">
                                     {actionPath.certifications.map((c, i) => (
                                         <li key={i}>{c}</li>
@@ -192,7 +192,7 @@ export default function ReadinessResult() {
                                 </ul>
 
                                 <div className="job-buttons mt-6" style={{ marginTop: 'auto', paddingTop: '2rem' }}>
-                                    <h4 style={{ color: '#94a3b8', marginBottom: '1rem', textTransform: 'uppercase', fontSize: '0.9rem' }}>Real World Demand</h4>
+                                    <h4 style={{ color: 'var(--text-muted)', marginBottom: '1rem', textTransform: 'uppercase', fontSize: '0.9rem' }}>Real World Demand</h4>
                                     <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(career.title)}`} target="_blank" rel="noopener noreferrer" className="cta-button google-job" style={{ width: '100%', textAlign: 'center', marginBottom: '0.5rem' }}>
                                         Scan Live Market Jobs
                                     </a>

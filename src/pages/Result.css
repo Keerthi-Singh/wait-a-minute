@@ -35,7 +35,7 @@
     align-items: center;
     background: var(--accent-success);
     border: 1px solid var(--border-color);
-    color: white;
+    color: var(--text-main);
     padding: 0.5rem 1rem;
     border-radius: 0;
     font-weight: 700;
@@ -104,7 +104,7 @@
     padding: 2px 8px;
     font-size: 0.7rem;
     text-transform: uppercase;
-    color: white;
+    color: var(--text-main);
     font-weight: 700;
     font-family: 'Space Mono', monospace;
 }
